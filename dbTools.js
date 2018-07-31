@@ -1,10 +1,10 @@
-const mongoDB = `mongodb://cain:${process.env.DBPW}@ds127983.mlab.com:27983/codebattle`;
+const mongoDB = require('./config.js');
 const mongoose = require('mongoose');
 
 require('dotenv').config();
 
 let db = false;
-mongoose.connect(mongoDB, {
+mongoose.connect(mongoDB.MONGOLINK, {
   useMongoClient: true,
 }, (error) => {
   if (error) {
