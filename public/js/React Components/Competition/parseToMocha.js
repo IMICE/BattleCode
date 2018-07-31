@@ -7,7 +7,7 @@ const parseToMocha = (obj, name) => {
 
   return `${Object.entries(obj).reduce((prev, curr) => `${prev}
         it('${curr[0]} to be ${curr[1]}', () => {
-          expect(${curr[0]}).to.equal(${curr[1]});
+          expect(${curr[0]}).to.eql(${curr[1]});
         });`, parsed)}
       });
       mocha.run();
