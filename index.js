@@ -53,3 +53,5 @@ app.post('/makechallenge', db.makeChallenge);
 app.post('/gamewin', db.gameWin);
 app.get('/games', db.getGameWinners);
 app.get('/findUserById', db.findUserById);
+app.post('/solutions', db.addSolution);
+app.get('/solutions', db.getSolutions);
