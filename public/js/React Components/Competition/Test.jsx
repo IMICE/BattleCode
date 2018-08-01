@@ -24,16 +24,16 @@ export default class Test extends Component {
           if (this.props.passed === false) {
             ////////////////////////////////////////////////////
             // this is the spot where the solution can be saved too
-            {console.log(this.props, 'this.props in Test.jsx')};
+            // {console.log(this.props, 'this.props in Test.jsx')};
             /////////////////////////////////////////////
             axios.post('/gamewin', { email: this.props.user, gameId: this.props.testId }).then((res) => {
               axios.post('/solutions', { testId: this.props.testId, solution: this.props.userInput, username: this.props.user }).then((res) => {
-                console.log(res, 'res to POST /gamewin & /solutions in Test.jsx');
+                // console.log(res, 'res to POST /gamewin & /solutions in Test.jsx');
                 const testId = this.props.testId;
                 axios.get('/solutions', {
                   params: { testId },
                 }).then((res) => {
-                  console.log(res, 'res to GET /solutions in Test.jsx');
+                  // console.log(res, 'res to GET /solutions in Test.jsx');
                   // testId, [solutions], 
                 });
               });
