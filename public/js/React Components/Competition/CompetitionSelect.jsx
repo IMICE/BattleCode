@@ -14,6 +14,8 @@ export default class CompetitionSelect extends Component {
     };
 
     axios.get('/competitions').then((res) => {
+      console.log(res.data, 'res.data in CompetitionSelect.jsx');
+
       this.setState({
         Competitions: res.data,
       });

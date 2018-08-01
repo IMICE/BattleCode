@@ -167,7 +167,11 @@ exports.getGameWinners = (req, res) => {
   });
 };
 exports.addSolution = (req, res) => {
+<<<<<<< HEAD
   console.log('add');
+=======
+  console.log(req.body, 'addSolution in dbTools');
+>>>>>>> 4f6171bd2fb764fab9233014e34d285a46e1e29d
   Solution.create(req.body, (err, made) => {
     if (err) {
       res.send(err);
@@ -175,6 +179,7 @@ exports.addSolution = (req, res) => {
       res.status(201).send(made);
     }
   });
+};
 
 }
 
