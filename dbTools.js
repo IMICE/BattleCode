@@ -168,15 +168,15 @@ exports.getGameWinners = (req, res) => {
 };
 exports.addSolution = (req, res) => {
   console.log('add');
-      Solution.create(req.body, (err, made) => {
-        if (err) {
-          res.send(err);
-        } else {
-          res.status(201).send(made);
-        }
-      });
+  Solution.create(req.body, (err, made) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(201).send(made);
+    }
   });
 
+}
 
 exports.getSolutions = (req, res) => {
   Solution.find({}).exec((err, solutions) => {
