@@ -13,6 +13,9 @@ import WinShare from './WinShare';
 export default class Competition extends Component {
   constructor(props) {
     super(props);
+    ///////////////////////////
+    // add a solutions state here?
+    ///////////////////////
     this.state = {
       mode: 'javascript',
       theme: 'blackboard',
@@ -26,6 +29,9 @@ export default class Competition extends Component {
     axios.post('/uniquecompetition', {
       id: window.location.hash.split('?id=')[1],
     }).then(res => {
+      ////////////////////
+      console.log(res.data, 'res.data of POST /uniquecompetition in Competition.jsx');
+      /////////////////////////////
       this.setState({
         test: parseToMocha(res.data[0].tests, res.data[0].name),
         name: res.data[0].name,
@@ -38,6 +44,7 @@ export default class Competition extends Component {
   // post the test id to the solutions schema here
   updateState(newState) {
     this.setState(newState);
+    console.log(newState, 'newState from updateState called in Competition.jsx');
   }
 
   render() {
@@ -55,7 +62,7 @@ export default class Competition extends Component {
               <Link to="/dash">
                 <FontIcon className={'material-icons icons iconsLeft'}>
                     navigate_before
-                </FontIcon> 
+                </FontIcon>
               </Link>
             }
             iconElementRight={

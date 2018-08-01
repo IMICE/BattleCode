@@ -22,8 +22,15 @@ export default class Test extends Component {
         if (mocha.suite.suites[0].tests.every(test => test.state === 'passed')) {
           document.getElementsByClassName('Confetti')[0].style.display = 'block';
           if (this.props.passed === false) {
+            ////////////////////////////////////////////////////
+            // this is the spot where the solution can be saved too
+            {console.log(this.props, 'this.props in Test.jsx')};
+            /////////////////////////////////////////////
             axios.post('/gamewin', { email: this.props.user, gameId: this.props.testId }).then((res) => {
-              console.log(res);
+              axios.post('/solutions', { testId: this.props.testId, solution: this.props.userInput, username: this.props.user }).then((res) => {
+                console.log(res, 'res to POST /gamewin & /solutions in Test.jsx');
+                // update state of solutions
+              });
             });
             this.props.update();
           }

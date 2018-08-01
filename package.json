@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "webpack": "NODE_ENV=prod && webpack -w",
+    "server-dev": "nodemon index.js",
     "setup": "npm install && npm run webpack && npm start"
   },
   "repository": {
