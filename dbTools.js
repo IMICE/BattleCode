@@ -26,7 +26,7 @@ const userSchema = Schema({
   username: String,
   email: String,
 });
-
+//
 const challengeSchema = new Schema({
   name: String,
   description: String,
@@ -42,14 +42,19 @@ const gameSchema = new Schema({
   },
 });
 
+const solutionSchema = new Schema({
+  testname: String,
+  solution: String,
+  username: String,
+});
 
 const Challenge = mongoose.model('Challenge', challengeSchema);
 const User = mongoose.model('User', userSchema);
 const Game = mongoose.model('Game', gameSchema);
-
+const Solution = mongoose.model('Solution', solutionSchema);
 
 exports.makeChallenge = (req, res) => {
-  console.log('make cha called')
+  console.log('make cha called');
   Challenge.find({
     name: req.body.name,
   }).exec((notFound, found) => {
