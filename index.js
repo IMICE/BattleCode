@@ -38,9 +38,9 @@ io.on('connection', (socket) => {
     //   socket.in('alpha').emit('new user join', data.user)
     // }, 2000);
     socket.on('msg', (msgData) => {
-      // console.log(msgData, 'this is the emit from a win');
+      console.log(msgData, 'this is the emit from a win');
       socket.to(room).emit('winner', msgData)
-      socket.disconnect();
+      // socket.disconnect();
     });
   });
   // socket.on('msg', (msgData) => {
