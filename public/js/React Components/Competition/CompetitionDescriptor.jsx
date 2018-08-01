@@ -4,35 +4,22 @@ import { Card, CardText } from 'material-ui';
 import Test from './Test';
 import SocketPlace from './SocketPlace';
 
-
 class CompetitionDescriptor extends Component {
   constructor(props) {
     super(props);
     this.props = props;
     this.state = {
-      passed: false,
-      updated: false,
     };
-    this.makeUpdateTrue = this.makeUpdateTrue.bind(this);
-    this.getState = this.getState.bind(this);
   }
 
-  getState() {
-    return this.state.passed;
-  }
-  makeUpdateTrue() {
-    this.setState({
-      updated: true,
-      passed: true,
-    });
-  }
   render() {
-    const { desc, testId, name, test, user, userInput } = this.props;
+    const { desc, testId, name, test, user, userInput, update, getState, getSolutions, updated } = this.props;
     return (
       <div className="CompetitionDescriptor">
         <div className="TopDescription">
           <SocketPlace
-            passed={this.getState}
+            passed={getState}
+            getSolutions={getSolutions}
             user={user}
             testName={name}
           />
@@ -44,8 +31,8 @@ class CompetitionDescriptor extends Component {
           </Card>
         </div>
         <Test
-          passed={this.state.updated}
-          update={this.makeUpdateTrue}
+          passed={updated}
+          update={update}
           test={test}
           userInput={userInput}
           user={user}
@@ -63,6 +50,11 @@ CompetitionDescriptor.propTypes = {
   user: PropTypes.string.isRequired,
   testId: PropTypes.string.isRequired,
   userInput: PropTypes.string.isRequired,
+  update: PropTypes.func.isRequired,
+  getState: PropTypes.func.isRequired,
+  getSolutions: PropTypes.func.isRequired,
+  updated: PropTypes.bool.isRequired,
+
 };
 
 export default CompetitionDescriptor;
