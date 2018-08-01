@@ -41,7 +41,7 @@ export default class Competition extends Component {
     });
     this.updateState = this.updateState.bind(this);
   }
-
+  // post the test id to the solutions schema here
   updateState(newState) {
     this.setState(newState);
     console.log(newState, 'newState from updateState called in Competition.jsx');
