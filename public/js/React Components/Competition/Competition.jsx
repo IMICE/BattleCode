@@ -104,6 +104,7 @@ export default class Competition extends Component {
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
           />
+          <div>
           <div className="MainCompetition">
           
             <CompetitionDescriptor
@@ -121,6 +122,7 @@ export default class Competition extends Component {
 
             />
             Timer: <div className="timer"><Timer1 /> </div>
+            
             <TextEditor
               className="TextEditor"
               mode={mode}
@@ -128,6 +130,8 @@ export default class Competition extends Component {
               userInput={userInput}
               updateState={this.updateState}
             />
+            
+          </div>
           </div>
           <WinShare
             className="WinShare"
