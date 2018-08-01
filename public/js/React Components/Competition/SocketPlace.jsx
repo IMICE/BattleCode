@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import io from 'socket.io-client';
-import $ from 'jquery';
 
 const socket = io();
 
@@ -47,19 +46,10 @@ export default class SocketPlace extends Component {
   render() {
     if (this.state.winner) {
       return (
-        <script>
-          {$(() => {
-            const socket = io();
-            $('form').submit(() => {
-              socket.emit('chat message', $('#m').val());
-              $('#m').val('');
-              return false;
-            });
-            socket.on('chat message', (msg) => {
-              $('#messages').append($('<li>').text(msg));
-            });
-          })}
-        </script>
+        <div>
+          {/* {setTimeout(() => console.log(user, players), 1000)} */}
+          <h3>{this.state.winner}</h3> <br /> Chat About It!
+        </div>
       );
     }
     const { players, user } = this.state;
