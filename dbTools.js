@@ -167,7 +167,7 @@ exports.getGameWinners = (req, res) => {
   });
 };
 exports.addSolution = (req, res) => {
-  console.log(req.body, 'addSolution in dbTools');
+  console.log('add');
   Solution.create(req.body, (err, made) => {
     if (err) {
       res.send(err);
@@ -175,11 +175,11 @@ exports.addSolution = (req, res) => {
       res.status(201).send(made);
     }
   });
-};
 
-
+}
+//find solutions by test ID or other key
 exports.getSolutions = (req, res) => {
-  Solution.find({}).exec((err, solutions) => {
+  Solution.find(req.query).exec((err, solutions) => {
     if (err) {
       res.send(err);
     } else {
