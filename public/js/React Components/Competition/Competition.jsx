@@ -9,6 +9,15 @@ import TextEditor from './TextEditor';
 import TextEditorSettings from './TextEditorSettings';
 import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
+import ReactDOM from 'react-dom';
+import timer from 'react-timer-hoc';
+function Counter({ timer }) {
+  return <div>{timer.tick}</div>
+}
+
+const timer1000 = timer(1000);
+const Timer1 = timer1000(Counter);
+const timeNow = Date.now();
 
 export default class Competition extends Component {
   constructor(props) {
@@ -24,6 +33,7 @@ export default class Competition extends Component {
       name: '',
       desc: '',
       id: '',
+      time: 0,
     };
 
     axios.post('/uniquecompetition', {
@@ -46,7 +56,9 @@ export default class Competition extends Component {
     this.setState(newState);
     console.log(newState, 'newState from updateState called in Competition.jsx');
   }
+  
 
+       
   render() {
     const { desc, mode, name, test, theme, userInput } = this.state;
     if (this.state.name === '') {
@@ -55,6 +67,7 @@ export default class Competition extends Component {
       <MuiThemeProvider>
         <div className="Competition">
           <Confetti className="Confetti" />
+          
           <AppBar
             title="Challenge"
             style={{ backgroundColor: '#4FB5DB' }}
@@ -69,6 +82,7 @@ export default class Competition extends Component {
               <TextEditorSettings updateState={this.updateState} />}
           />
           <div className="MainCompetition">
+          
             <CompetitionDescriptor
               updateState={this.updateState}
               userInput={userInput}
@@ -78,6 +92,7 @@ export default class Competition extends Component {
               user={this.props.user}
               testId={this.state.testId}
             />
+             Timer: <Timer1 />
             <TextEditor
               className="TextEditor"
               mode={mode}
@@ -90,6 +105,7 @@ export default class Competition extends Component {
             className="WinShare"
             testId={this.state.testId}
           />
+          
         </div>
       </MuiThemeProvider>
     );
