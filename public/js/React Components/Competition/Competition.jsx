@@ -92,7 +92,8 @@ export default class Competition extends Component {
               user={this.props.user}
               testId={this.state.testId}
             />
-             Timer: <Timer1 />
+             Timer: <Timer1 time={timer.tick}/>
+             {this.state.time}
             <TextEditor
               className="TextEditor"
               mode={mode}
