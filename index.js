@@ -31,16 +31,23 @@ io.on('connection', (socket) => {
   console.log('connected');
   socket.on('room', (data) => {
     console.log('in joining room in SERVER', data);
-    const room = data.room;
+    const room = data.testName;
     socket.join(room);
     socket.to(room).emit('new user join', [data.user]);
     // setTimeout(() => {
     //   socket.in('alpha').emit('new user join', data.user)
     // }, 2000);
+    socket.on('msg', (msgData) => {
+      // console.log(msgData, 'this is the emit from a win');
+      socket.to(room).emit('winner', msgData)
+      socket.disconnect();
+    });
   });
-  socket.on('msg', (msgData) => {
-    console.log(msgData);
-  });
+  // socket.on('msg', (msgData) => {
+  //   console.log(msgData, 'this is the emit from a win');
+  //   socket.to(data.testName).emit(msgData)
+  //   socket.disconnect('room');
+  // });
 });
 
 app.post('/signin', (req, res) => {
