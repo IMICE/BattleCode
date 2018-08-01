@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import io from 'socket.io-client';
+
 const socket = io();
 
 export default class SocketPlace extends Component {
@@ -14,22 +15,28 @@ export default class SocketPlace extends Component {
     };
     this.send = this.send.bind(this);
     this.updateState = this.updateState.bind(this);
-    // this.checkWin();
+    this.checkWin();
     socket.emit('room', this.props);
     socket.on('new user join', (data) => {
       console.log(data, 'newuser');
-      let newP = this.state.players.concat(data.user);
-      // this.setState({ players: newP });
+      const newP = this.state.players.concat(data);
+      this.setState({ players: newP });
+    });
+    socket.on('winner', (data) => {
+      this.setState({ winner: data });
     });
   }
-  // checkWin() {
-  //   setInterval(() => {
-  //     if (this.props.passed()) {
-  //       socket.emit('msg', `${this.props.user.slice(0, this.props.user.indexOf('@'))} won!`);
-  //     }
-  //   }, 20);
-  // }
+  checkWin() {
+    const winCheck = setInterval(() => {
+      if (this.props.passed()) {
+        // console.log(this.props.user.slice(0, this.props.user.indexOf('@')));
+        socket.emit('msg', `${this.props.user.slice(0, this.props.user.indexOf('@'))} won!`);
+        clearInterval(winCheck)
+      }
+    }, 20);
+  }
   send(event) {
+    // console.log(event);
     socket.emit('room', 'button clicked');
   }
   updateState(newState) {
@@ -37,9 +44,18 @@ export default class SocketPlace extends Component {
   }
 
   render() {
-    const {players, user} = this.state;
+    if (this.state.winner) {
+      return (
+        <div>
+          {/* {setTimeout(() => console.log(user, players), 1000)} */}
+          <h3>{this.state.winner}</h3>
+        </div>
+      );
+    }
+    const { players, user } = this.state;
     return (
       <div>
+        {/* {setTimeout(() => console.log(user, players), 1000)} */}
         <h3>In room now {players}</h3>
       </div>
     );
