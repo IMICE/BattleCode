@@ -18,18 +18,20 @@ export default class SocketPlace extends Component {
     socket.emit('room', this.props);
     socket.on('new user join', (data) => {
       console.log(data, 'newuser');
-      let newP = this.state.players.concat(data.user);
-      // this.setState({ players: newP });
+      let newP = this.state.players.concat(data);
+      this.setState({ players: newP });
     });
   }
   checkWin() {
     setInterval(() => {
       if (this.props.passed()) {
+        // console.log(this.props.user.slice(0, this.props.user.indexOf('@')));
         socket.emit('msg', `${this.props.user.slice(0, this.props.user.indexOf('@'))} won!`);
       }
     }, 20);
   }
   send(event) {
+    console.log(event);
     socket.emit('room', 'button clicked');
   }
   updateState(newState) {
@@ -40,6 +42,7 @@ export default class SocketPlace extends Component {
     const {players, user} = this.state;
     return (
       <div>
+      {/* {setTimeout(() => console.log(user, players), 1000)} */}
         <h3>In room now {players}</h3>
       </div>
     );
