@@ -59,4 +59,5 @@ app.get('/games', db.getGameWinners);
 app.get('/findUserById', db.findUserById);
 app.post('/solutions', db.addSolution);
 app.get('/solutions', db.getSolutions);
-
+app.post('/userprofiles', db.addUserProfile);
+app.get('/userprofiles', db.getUserProfile);

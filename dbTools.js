@@ -48,10 +48,17 @@ const solutionSchema = new Schema({
   username: String,
 });
 
+const userProfileSchema = new Schema({
+  username: String,
+  points: Number,
+  wins: Number,
+  badges: Array,
+});
 const Challenge = mongoose.model('Challenge', challengeSchema);
 const User = mongoose.model('User', userSchema);
 const Game = mongoose.model('Game', gameSchema);
 const Solution = mongoose.model('Solution', solutionSchema);
+const UserProfile = mongoose.model('UserProfile', userProfileSchema);
 
 exports.makeChallenge = (req, res) => {
   console.log('make cha called');
@@ -166,24 +173,23 @@ exports.getGameWinners = (req, res) => {
     }
   });
 };
-exports.addSolution = (req, res) => {
-  console.log('add');
-  Solution.create(req.body, (err, made) => {
+exports.addUserProfile = (req, res) => {
+  console.log('added a profile', req.body);
+  UserProfile.create(req.body, (err, made) => {
     if (err) {
       res.send(err);
     } else {
       res.status(201).send(made);
     }
   });
-
 }
-//find solutions by test ID or other key
-exports.getSolutions = (req, res) => {
-  Solution.find(req.query).exec((err, solutions) => {
+
+exports.getUserProfile = (req, res) => {
+  UserProfile.find(req.query).exec((err, profile) => {
     if (err) {
       res.send(err);
     } else {
-      res.send(solutions);
+      res.send(profile);
     }
   });
 };
