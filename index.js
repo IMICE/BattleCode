@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
   console.log('connected');
   socket.on('room', (data) => {
     console.log('in joining room in SERVER', data);
-    const room = data.room;
+    const room = data.testName;
     socket.join(room);
     socket.to(room).emit('new user join', [data.user]);
     // setTimeout(() => {
