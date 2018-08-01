@@ -173,6 +173,24 @@ exports.getGameWinners = (req, res) => {
     }
   });
 };
+exports.addSolution = (req, res) => {
+  Solution.create(req.body, (err, made) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(201).send(made);
+    }
+  });
+}
+exports.getSolutions = (req, res) => {
+  Solution.find(req.query).exec((err, solutions) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(solutions);
+    }
+  });
+};
 exports.addUserProfile = (req, res) => {
   // console.log('added a profile', req.body);
   UserProfile.create(req.body, (err, made) => {
