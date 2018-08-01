@@ -29,7 +29,13 @@ export default class Test extends Component {
             axios.post('/gamewin', { email: this.props.user, gameId: this.props.testId }).then((res) => {
               axios.post('/solutions', { testId: this.props.testId, solution: this.props.userInput, username: this.props.user }).then((res) => {
                 console.log(res, 'res to POST /gamewin & /solutions in Test.jsx');
-                // update state of solutions
+                const testId = this.props.testId;
+                axios.get('/solutions', {
+                  params: { testId },
+                }).then((res) => {
+                  console.log(res, 'res to GET /solutions in Test.jsx');
+                  // testId, [solutions], 
+                });
               });
             });
             this.props.update();
