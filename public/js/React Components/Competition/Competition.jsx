@@ -9,6 +9,15 @@ import TextEditor from './TextEditor';
 import TextEditorSettings from './TextEditorSettings';
 import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
+import ReactDOM from 'react-dom';
+import timer from 'react-timer-hoc';
+function Counter({ timer }) {
+  return <div>{timer.tick}</div>
+}
+
+const timer1000 = timer(1000);
+const Timer1 = timer1000(Counter);
+const timeNow = Date.now();
 import SolutionsList from './SolutionsList.jsx';
 
 export default class Competition extends Component {
@@ -81,6 +90,7 @@ export default class Competition extends Component {
       <MuiThemeProvider>
         <div className="Competition">
           <Confetti className="Confetti" />
+          
           <AppBar
             title="Challenge"
             style={{ backgroundColor: '#4FB5DB' }}
@@ -95,6 +105,7 @@ export default class Competition extends Component {
               <TextEditorSettings updateState={this.updateState} />}
           />
           <div className="MainCompetition">
+          
             <CompetitionDescriptor
               updateState={this.updateState}
               userInput={userInput}
@@ -109,6 +120,7 @@ export default class Competition extends Component {
               updated={this.state.updated}
 
             />
+            Timer: <div className="timer"><Timer1 /> </div>
             <TextEditor
               className="TextEditor"
               mode={mode}
@@ -121,6 +133,7 @@ export default class Competition extends Component {
             className="WinShare"
             testId={this.state.testId}
           />
+          
           solutions
           {this.state.passed ? this.state.solutions.map(solution => <SolutionsList solution={solution} key={solution._id} />)
             : <div />}
