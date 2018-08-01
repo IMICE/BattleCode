@@ -26,7 +26,7 @@ const userSchema = Schema({
   username: String,
   email: String,
 });
-
+//
 const challengeSchema = new Schema({
   name: String,
   description: String,
@@ -42,14 +42,19 @@ const gameSchema = new Schema({
   },
 });
 
+const solutionSchema = new Schema({
+  testId: String,
+  solution: String,
+  username: String,
+});
 
 const Challenge = mongoose.model('Challenge', challengeSchema);
 const User = mongoose.model('User', userSchema);
 const Game = mongoose.model('Game', gameSchema);
-
+const Solution = mongoose.model('Solution', solutionSchema);
 
 exports.makeChallenge = (req, res) => {
-  console.log('make cha called')
+  console.log('make cha called');
   Challenge.find({
     name: req.body.name,
   }).exec((notFound, found) => {
@@ -158,6 +163,27 @@ exports.getGameWinners = (req, res) => {
       res.send(err);
     } else {
       res.send(games);
+    }
+  });
+};
+exports.addSolution = (req, res) => {
+  console.log('add');
+      Solution.create(req.body, (err, made) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.status(201).send(made);
+        }
+      });
+  });
+
+
+exports.getSolutions = (req, res) => {
+  Solution.find({}).exec((err, solutions) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(solutions);
     }
   });
 };
