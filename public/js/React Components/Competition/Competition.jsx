@@ -33,7 +33,6 @@ export default class Competition extends Component {
       name: '',
       desc: '',
       id: '',
-      time: 0,
     };
 
     axios.post('/uniquecompetition', {
@@ -56,9 +55,7 @@ export default class Competition extends Component {
     this.setState(newState);
     console.log(newState, 'newState from updateState called in Competition.jsx');
   }
-  
 
-       
   render() {
     const { desc, mode, name, test, theme, userInput } = this.state;
     if (this.state.name === '') {
@@ -92,8 +89,7 @@ export default class Competition extends Component {
               user={this.props.user}
               testId={this.state.testId}
             />
-             Timer: <Timer1 time={timer.tick}/>
-             {this.state.time}
+            Timer: <div className="timer"><Timer1 /> </div>
             <TextEditor
               className="TextEditor"
               mode={mode}

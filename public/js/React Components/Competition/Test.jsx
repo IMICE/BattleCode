@@ -5,6 +5,8 @@ import axios from 'axios';
 
 export default class Test extends Component {
   componentDidMount() {
+    
+
     try {
       mocha.suite.suites.splice(0, 1);
       eval(`${this.props.userInput}; ${this.props.test};`);
@@ -20,6 +22,7 @@ export default class Test extends Component {
 
       setTimeout(() => {
         if (mocha.suite.suites[0].tests.every(test => test.state === 'passed')) {
+
           document.getElementsByClassName('Confetti')[0].style.display = 'block';
           if (this.props.passed === false) {
             ////////////////////////////////////////////////////
