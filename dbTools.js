@@ -48,10 +48,17 @@ const solutionSchema = new Schema({
   username: String,
 });
 
+const userProfileSchema = new Schema({
+  username: String,
+  points: Number,
+  wins: Number,
+  badges: Array,
+});
 const Challenge = mongoose.model('Challenge', challengeSchema);
 const User = mongoose.model('User', userSchema);
 const Game = mongoose.model('Game', gameSchema);
 const Solution = mongoose.model('Solution', solutionSchema);
+const UserProfileSchema = mongoose.model('UserProfile', userProfileSchema);
 
 exports.makeChallenge = (req, res) => {
   console.log('make cha called');
