@@ -167,7 +167,7 @@ exports.getGameWinners = (req, res) => {
   });
 };
 exports.addSolution = (req, res) => {
-  console.log('add');
+  console.log(req.body, 'addSolution in dbTools');
   Solution.create(req.body, (err, made) => {
     if (err) {
       res.send(err);
