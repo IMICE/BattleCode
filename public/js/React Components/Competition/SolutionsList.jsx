@@ -33,9 +33,4 @@ class SolutionsList extends Component {
   }
 }
 
-// SolutionsList.propTypes = {
-//   mode: PropTypes.string.isRequired,
-//   theme: PropTypes.string.isRequired,
-// };
-
 export default SolutionsList;
