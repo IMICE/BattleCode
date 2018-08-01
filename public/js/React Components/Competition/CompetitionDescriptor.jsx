@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Card, CardText } from 'material-ui';
 import Test from './Test';
 import SocketPlace from './SocketPlace';
+import axios from 'axios';
+import SolutionsList from './SolutionsList.jsx';
 
 
 class CompetitionDescriptor extends Component {
@@ -12,18 +14,33 @@ class CompetitionDescriptor extends Component {
     this.state = {
       passed: false,
       updated: false,
+      solutions: [],
     };
     this.makeUpdateTrue = this.makeUpdateTrue.bind(this);
     this.getState = this.getState.bind(this);
+    this.getSolutions = this.getSolutions.bind(this);
   }
-
   getState() {
     return this.state.passed;
   }
+  getSolutions() {
+    return this.state.solutions;
+  }
   makeUpdateTrue() {
-    this.setState({
-      updated: true,
-      passed: true,
+    axios.post('/gamewin', { email: this.props.user, gameId: this.props.testId }).then((res) => {
+      axios.post('/solutions', { testId: this.props.testId, solution: this.props.userInput, username: this.props.user }).then((res) => {
+        const testId = this.props.testId;
+        axios.get('/solutions', {
+          params: { testId },
+        }).then((res) => {
+          const allSolutions = res.data;
+          this.setState({
+            updated: true,
+            passed: true,
+            solutions: allSolutions,
+          });
+        });
+      });
     });
   }
   render() {
@@ -33,6 +50,7 @@ class CompetitionDescriptor extends Component {
         <div className="TopDescription">
           <SocketPlace
             passed={this.getState}
+            solutions={this.getSolutions}
             user={user}
             testName={name}
           />
@@ -51,6 +69,10 @@ class CompetitionDescriptor extends Component {
           user={user}
           testId={testId}
         />
+        solutions
+
+        {this.state.passed ? this.state.solutions.map(solution => <SolutionsList solution={solution} key={solution._id} />)
+          : <div />}
       </div>
     );
   }

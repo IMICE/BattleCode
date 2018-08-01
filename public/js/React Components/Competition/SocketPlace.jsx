@@ -14,7 +14,7 @@ export default class SocketPlace extends Component {
     };
     this.send = this.send.bind(this);
     this.updateState = this.updateState.bind(this);
-    this.checkWin();
+    // this.checkWin();
     socket.emit('room', this.props);
     socket.on('new user join', (data) => {
       console.log(data, 'newuser');
@@ -22,13 +22,13 @@ export default class SocketPlace extends Component {
       // this.setState({ players: newP });
     });
   }
-  checkWin() {
-    setInterval(() => {
-      if (this.props.passed()) {
-        socket.emit('msg', `${this.props.user.slice(0, this.props.user.indexOf('@'))} won!`);
-      }
-    }, 20);
-  }
+  // checkWin() {
+  //   setInterval(() => {
+  //     if (this.props.passed()) {
+  //       socket.emit('msg', `${this.props.user.slice(0, this.props.user.indexOf('@'))} won!`);
+  //     }
+  //   }, 20);
+  // }
   send(event) {
     socket.emit('room', 'button clicked');
   }
