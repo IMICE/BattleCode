@@ -43,7 +43,7 @@ const gameSchema = new Schema({
 });
 
 const solutionSchema = new Schema({
-  testname: String,
+  testId: String,
   solution: String,
   username: String,
 });
@@ -163,6 +163,27 @@ exports.getGameWinners = (req, res) => {
       res.send(err);
     } else {
       res.send(games);
+    }
+  });
+};
+exports.addSolution = (req, res) => {
+  console.log('add');
+      Solution.create(req.body, (err, made) => {
+        if (err) {
+          res.send(err);
+        } else {
+          res.status(201).send(made);
+        }
+      });
+  });
+
+
+exports.getSolutions = (req, res) => {
+  Solution.find({}).exec((err, solutions) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(solutions);
     }
   });
 };
