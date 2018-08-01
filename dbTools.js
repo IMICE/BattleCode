@@ -61,7 +61,7 @@ const Solution = mongoose.model('Solution', solutionSchema);
 const UserProfile = mongoose.model('UserProfile', userProfileSchema);
 
 exports.makeChallenge = (req, res) => {
-  console.log('make cha called');
+  // console.log('make cha called');
   Challenge.find({
     name: req.body.name,
   }).exec((notFound, found) => {
@@ -174,7 +174,7 @@ exports.getGameWinners = (req, res) => {
   });
 };
 exports.addUserProfile = (req, res) => {
-  console.log('added a profile', req.body);
+  // console.log('added a profile', req.body);
   UserProfile.create(req.body, (err, made) => {
     if (err) {
       res.send(err);
