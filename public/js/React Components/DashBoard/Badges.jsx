@@ -12,16 +12,27 @@ export default class Badges extends Component {
   }
   render() {
     const BadgesList = this.state.BadgesList.map(e => (
-      <div key={e[1]}>
-      <li >
-      <ul><b>{e[0]} </b></ul>
-      </li>
-      <li>
-        <ul> {e[1]} points</ul>
-        </li>
-        </div>
-      
+      <div className="list-group" key={e[1]}>
+        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+          <div className="d-flex w-100 justify-content-between">
+            {/* <h5 className="mb-1">{e[0]}</h5> */}
+            {/* <small className="text-muted">{i + 1}</small> */}
+          </div>
+          <p className="mb-1">{e[0]}</p>
+          <small className="text-muted">{e[1]} points</small>
+        </a>
+      </div>
     ));
+      // <div key={e[1]}>
+      // <li >
+      // <ul><b>{e[0]} </b></ul>
+      // </li>
+      // <li>
+      //   <ul> {e[1]} points</ul>
+      //   </li>
+      //   </div>
+      
+    // ));
     return (
       <div className="DashBoardHalf">
         <div className="ListTitle">

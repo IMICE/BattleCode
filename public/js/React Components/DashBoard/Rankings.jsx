@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 export default class Rankings extends Component {
   constructor() {
@@ -55,18 +57,41 @@ export default class Rankings extends Component {
     return currBadge;
   }
   render() {
-    const userRankings = this.state.userRankings.map((e, i) => (
-      <li key={e.username} className="RankList">
-        <ul>
-          {/* {console.log(e, 'e in Rankings')} */}
-          <b> {i + 1}. </b>
-          
-          <span> {e.username} Points: {e.points}</span>
-          
-        </ul>
-        <ul><span>Current Badge:{this.getBadge(e.points)}</span></ul>
-      </li>
+    const userRankings = this.state.userRankings.map((user, i) => (
+      <div className="list-group" key={user.username}>
+        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+          <div className="d-flex w-100 justify-content-between">
+            <h5 className="mb-1">{user.username}</h5>
+            <small className="text-muted">{i + 1}</small>
+          </div>
+          <p className="mb-1">{this.getBadge(user.points)}</p>
+          <small className="text-muted">{user.points} points</small>
+        </a>
+      </div>
     ));
+
+
+    //   <Card key={user.username} className="RankList">
+    //     <b> {i + 1}. </b>
+    //     <CardHeader
+    //       title={user.username}
+    //     />
+    //     <CardTitle title={this.getBadge(user.points)} subtitle={user.points} />
+    //   </Card>
+    // ));
+
+      // <li key={e.username} className="RankList">
+      //   <ul>
+      //     {/* {console.log(e, 'e in Rankings')} */}
+      //     <b> {i + 1}. </b>
+          
+      //     <span> {e.username} Points: {e.points}</span>
+          
+      //   </ul>
+      //   <ul><span>Current Badge:{this.getBadge(e.points)}</span></ul>
+      // </li>
+    // ));
+
     // const RankingsList = this.state.RankingsList.map((e, i) => (
     //   <li key={e[0]} className="RankList">
     //     <p>
