@@ -20,8 +20,6 @@ export default class Chat extends Component {
     });
 
     this.handleKeyInput = (e) => {
-      console.log(e)
-      console.log(e.key, 'KEY');
       if (e.key === 'Enter') {
         e.preventDefault();
         this.sendMessage(e)
