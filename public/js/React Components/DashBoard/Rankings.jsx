@@ -10,18 +10,6 @@ export default class Rankings extends Component {
       // RankingsList: [],
     };
     this.getBadge = this.getBadge.bind(this);
-  console.log(this.state.badges);
-
-  }
-  getBadge(points){
-    const badges = this.state.badges;
-    let currBadge = badges[0];
-    for(let i = 0; i < badges.length; i++){
-      if(points >= Number(badges[i+1])){
-        currBadge = badges[i];
-      }
-    }
-    return currBadge;
   }
   componentWillMount() {
     axios.get('/userprofiles')
@@ -56,7 +44,16 @@ export default class Rankings extends Component {
     //   );
     // });
   }
-
+  getBadge(points) {
+    const badges = this.state.badges;
+    let currBadge = badges[0];
+    for (let i = 0; i < badges.length; i++) {
+      if (points >= Number(badges[i + 1])) {
+        currBadge = badges[i];
+      }
+    }
+    return currBadge;
+  }
   render() {
     const userRankings = this.state.userRankings.map((e, i) => (
       <li key={e.username} className="RankList">
