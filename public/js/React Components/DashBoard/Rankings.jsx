@@ -54,8 +54,13 @@ export default class Rankings extends Component {
   render() {
     const userRankings = this.state.userRankings.map((e, i) => (
       <li key={e.username} className="RankList">
+<<<<<<< HEAD
         <ul>
           {console.log(e, 'e in Rankings')}
+=======
+        <p>
+          {/* {console.log(e, 'e in Rankings')} */}
+>>>>>>> 64128bbfcf537667c37939b705429081cf1216f8
           <b> {i + 1}. </b>
           <span> {e.username} Points: {e.points}</span>
           <span>{this.state.badges[0]}</span>
