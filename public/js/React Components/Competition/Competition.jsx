@@ -120,25 +120,6 @@ export default class Competition extends Component {
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
           />
-<<<<<<< HEAD
-          
-          {this.state.passed ? 
-            <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/>
-            : 
-          <div className="MainCompetition">
-            <CompetitionDescriptor
-              updateState={this.updateState}
-              userInput={userInput}
-              test={test}
-              name={name}
-              desc={desc}
-              user={this.props.user}
-              testId={this.state.testId}
-              update={this.update}
-              getState={this.getState}
-              getSolutions={this.getSolutions}
-              updated={this.state.updated}
-=======
           {this.state.passed ? <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
             :
             <div className="MainCompetition">
@@ -154,7 +135,6 @@ export default class Competition extends Component {
                 getState={this.getState}
                 getSolutions={this.getSolutions}
                 updated={this.state.updated}
->>>>>>> 2ccfff5add8f1b5892ec68f29fcad282c9a508a0
 
               />
             Timer: {this.state.timerStop? <div>{this.state.time }</div>: <Timer1 />} 
