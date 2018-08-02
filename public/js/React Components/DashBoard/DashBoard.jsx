@@ -25,7 +25,7 @@ const DashBoard = props => (
         </div>
       </Card>
       <div>
-        <Chat />
+        <Chat user={props.user} />
       </div>
     </div>
   </MuiThemeProvider >
