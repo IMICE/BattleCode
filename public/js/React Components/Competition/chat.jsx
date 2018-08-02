@@ -19,6 +19,14 @@ export default class Chat extends Component {
       addMessage(data);
     });
 
+    this.handleKeyInput = (e) => {
+      console.log(e)
+      console.log(e.key, 'KEY');
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        this.sendMessage(e)
+      }
+    };
 
     this.sendMessage = (ev) => {
       ev.preventDefault();
@@ -47,7 +55,11 @@ export default class Chat extends Component {
               </div>
               <div className="card-footer">
                 <br />
-                <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({ message: ev.target.value })} />
+                <input
+                  onKeyPress={this.handleKeyInput}
+                  type="text"
+                  placeholder="Message"
+                  className="form-control" value={this.state.message} onChange={ev => this.setState({ message: ev.target.value })} />
                 <br />
                 <button onClick={this.sendMessage} className="btn btn-primary form-control">Send</button>
               </div>
