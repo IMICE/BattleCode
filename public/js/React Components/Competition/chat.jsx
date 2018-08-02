@@ -6,27 +6,24 @@ export default class Chat extends Component {
     super(props);
 
     this.state = {
-      username: '',
       message: '',
       messages: [],
     };
-
     this.socket = io();
+
+    const addMessage = (data) => {
+      this.setState({ messages: [...this.state.messages, data] });
+    };
 
     this.socket.on('RECEIVE_MESSAGE', (data) => {
       addMessage(data);
     });
 
-    const addMessage = (data) => {
-      console.log(data);
-      this.setState({ messages: [...this.state.messages, data] });
-      console.log(this.state.messages);
-    };
 
     this.sendMessage = (ev) => {
       ev.preventDefault();
       this.socket.emit('SEND_MESSAGE', {
-        author: this.state.username,
+        author: this.props.user.slice(0, props.user.indexOf('@')),
         message: this.state.message,
       });
       this.setState({ message: '' });
@@ -36,7 +33,7 @@ export default class Chat extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-4">
+          <div className="col-12">
             <div className="card">
               <div className="card-body">
                 <div className="card-title">Global Chat</div>
@@ -49,7 +46,6 @@ export default class Chat extends Component {
 
               </div>
               <div className="card-footer">
-                <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({ username: ev.target.value })} className="form-control" />
                 <br />
                 <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({ message: ev.target.value })} />
                 <br />
@@ -62,4 +58,3 @@ export default class Chat extends Component {
     );
   }
 }
-
