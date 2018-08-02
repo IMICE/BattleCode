@@ -11,6 +11,8 @@ import TextEditorSettings from './TextEditorSettings';
 import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
 import SolutionsList from './SolutionsList';
+import Solutions from './Solutions';
+import Paper from 'material-ui/Paper';
 
 function Counter({ timer }) {
   return <div className="timer">{timer.tick}</div>
@@ -37,12 +39,11 @@ export default class Competition extends Component {
       timerStop: false,
       tests: '',
       testPassedCount: 0,
+      confettiDone: false,
     };
     this.update = this.update.bind(this);
     this.getState = this.getState.bind(this);
     this.getSolutions = this.getSolutions.bind(this);
-    this.updateState = this.updateState.bind(this);
-
     axios.post('/uniquecompetition', {
       id: window.location.hash.split('?id=')[1],
     }).then(res => {
@@ -54,6 +55,7 @@ export default class Competition extends Component {
         tests: res.data[0].tests,
       });
     });
+    this.updateState = this.updateState.bind(this);
   }
   getState() {
     return this.state.passed;
@@ -76,7 +78,16 @@ export default class Competition extends Component {
             solutions: allSolutions,
             timerStop: true,
             time: document.getElementsByClassName('timer')[0].textContent,
-
+          });
+          setTimeout(() => {
+            this.setState({
+              confettiDone: true,
+            });
+          }, 2000);
+          const score = Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300) / this.state.time);
+          // add/update userProfile POST /userProfile
+          axios.post('/userprofiles', { username: this.props.user, points: score, badges: [] }).then((res) => {
+            // should we do something with this response?
           });
         });
       });
@@ -84,17 +95,14 @@ export default class Competition extends Component {
       .catch((err) => {
         console.error(err);
       });
-
   }
   updateState(newState) {
-    if(document.getElementsByClassName('timer')[0]){
-        this.setState({
-        });
-      
-    }
+    // if (document.getElementsByClassName('timer')[0]){
+    //   this.setState({
+    //   });
+    // }
 
     this.setState(newState);
-
   }
 
   render() {
@@ -105,7 +113,6 @@ export default class Competition extends Component {
       <MuiThemeProvider>
         <div className="Competition">
           <Confetti className="Confetti" />
-          
           <AppBar
             title="Challenge"
             style={{ backgroundColor: '#4FB5DB' }}
@@ -118,40 +125,42 @@ export default class Competition extends Component {
             }
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
+              
           />
-          <div className="MainCompetition">
-          
-            <CompetitionDescriptor
-              updateState={this.updateState}
-              userInput={userInput}
-              test={test}
-              name={name}
-              desc={desc}
-              user={this.props.user}
-              testId={this.state.testId}
-              update={this.update}
-              getState={this.getState}
-              getSolutions={this.getSolutions}
-              updated={this.state.updated}
-
-            />
-            Timer: {this.state.timerStop? <div>{this.state.time }</div>: <Timer1 />} 
-            <TextEditor
-              className="TextEditor"
-              mode={mode}
-              theme={theme}
-              userInput={userInput}
-              updateState={this.updateState}
-            />
+          <div>
+            <Paper style={{ margin: 10, textAlign: 'center', display: 'inline-block' }} zDepth={2}>
+              Timer: {this.state.timerStop ? <div>{this.state.time}</div> : <Timer1 />}</Paper>
           </div>
+          {this.state.confettiDone ? <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
+            :
+            <div className="MainCompetition">
+              <CompetitionDescriptor
+                updateState={this.updateState}
+                userInput={userInput}
+                test={test}
+                name={name}
+                desc={desc}
+                user={this.props.user}
+                testId={this.state.testId}
+                update={this.update}
+                getState={this.getState}
+                getSolutions={this.getSolutions}
+                updated={this.state.updated}
+
+              />
+            {/* Timer: {this.state.timerStop? <div>{this.state.time }</div>: <Timer1 />}  */}
+              <TextEditor
+                className="TextEditor"
+                mode={mode}
+                theme={theme}
+                userInput={userInput}
+                updateState={this.updateState}
+              />
+            </div>}
           <WinShare
             className="WinShare"
             testId={this.state.testId}
           />
-          
-          solution time: {this.state.time} Points: {Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time) }
-          {this.state.passed ? this.state.solutions.map(solution => <SolutionsList solution={solution} key={solution._id} />)
-            : <div />}
         </div>
       </MuiThemeProvider>
     );
