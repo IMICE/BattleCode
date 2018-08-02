@@ -44,7 +44,10 @@ io.on('connection', (socket) => {
 });
 
 app.post('/signin', (req, res) => {
+  console.log(gUserData)
   auth.tokenCheck(req.body.accessToken, (gUserData) => {
+    console.log(req.body)
+    console.log(gUserData, 'Guser data Server2')
 
     db.findUser(gUserData, (bcUserProfile) => {
       res.status(200).send(bcUserProfile);
