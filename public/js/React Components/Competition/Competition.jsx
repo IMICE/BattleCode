@@ -10,6 +10,7 @@ import TextEditorSettings from './TextEditorSettings';
 import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
 import ReactDOM from 'react-dom';
+import SolutionsList from './SolutionsList.jsx';
 import timer from 'react-timer-hoc';
 function Counter({ timer }) {
   return <div>{timer.tick}</div>
@@ -18,7 +19,6 @@ function Counter({ timer }) {
 const timer1000 = timer(1000);
 const Timer1 = timer1000(Counter);
 const timeNow = Date.now();
-import SolutionsList from './SolutionsList.jsx';
 
 export default class Competition extends Component {
   constructor(props) {
