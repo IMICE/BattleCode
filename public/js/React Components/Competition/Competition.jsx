@@ -11,6 +11,8 @@ import TextEditorSettings from './TextEditorSettings';
 import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
 import SolutionsList from './SolutionsList';
+import Solutions from './Solutions';
+
 
 function Counter({ timer }) {
   return <div className="timer">{timer.tick}</div>
@@ -119,8 +121,9 @@ export default class Competition extends Component {
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
           />
+          {this.state.passed ?<Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
+            : 
           <div className="MainCompetition">
-          
             <CompetitionDescriptor
               updateState={this.updateState}
               userInput={userInput}
@@ -143,15 +146,13 @@ export default class Competition extends Component {
               userInput={userInput}
               updateState={this.updateState}
             />
-          </div>
+          </div>}
           <WinShare
             className="WinShare"
             testId={this.state.testId}
           />
           
-          solution time: {this.state.time} Points: {Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time) }
-          {this.state.passed ? this.state.solutions.map(solution => <SolutionsList solution={solution} key={solution._id} />)
-            : <div />}
+          
         </div>
       </MuiThemeProvider>
     );
