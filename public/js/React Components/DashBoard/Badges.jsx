@@ -7,11 +7,13 @@ export default class Badges extends Component {
       BadgesList: [['Seaman Apprentice', '1000'], ['Seaman', 5000],['Able Seaman', 10000], ['Boatswain', 20000],
       ['Third Mate', 30000], ['Second Mate', 40000], ['First Mate', 100000], ['Captain', 200000], ['Admiral', 1000000000]]
     };
+  localStorage.setItem('badges', this.state.BadgesList);
+
   }
   render() {
     const BadgesList = this.state.BadgesList.map(e => (
-      <div>
-      <li key={e[1]}>
+      <div key={e[1]}>
+      <li >
       <ul><b>{e[0]} </b></ul>
       </li>
       <li>
