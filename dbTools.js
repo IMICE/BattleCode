@@ -51,8 +51,8 @@ const solutionSchema = new Schema({
 const userProfileSchema = new Schema({
   username: String,
   points: Number,
-  wins: Number,
   badges: Array,
+  // wins: Number,
 });
 const Challenge = mongoose.model('Challenge', challengeSchema);
 const User = mongoose.model('User', userSchema);
@@ -191,16 +191,32 @@ exports.getSolutions = (req, res) => {
     }
   });
 };
+
+// sort cards by favorites
+const sort = (callback) => {
+  UserProfile.find()
+    .sort('-points')
+    .exec(callback);
+};
+
 exports.addUserProfile = (req, res) => {
-  // console.log('added a profile', req.body);
-  UserProfile.create(req.body, (err, made) => {
+  console.log(req.body, 'req.body in dbTools');
+  UserProfile.findOneAndUpdate({ username: req.body.username }, {
+    username: req.body.username,
+    $inc: { points: req.body.points },
+    badges: req.body.badges,
+  }, { upsert: true, new: true, runValidators: true }, // options
+    // callback
+  (err, doc) => {
     if (err) {
-      res.send(err);
+      console.log(err);
     } else {
-      res.status(201).send(made);
+      // display cards sorted by favorites
+      // sort(callback);
+      res.send('userProfile updated in db');
     }
   });
-}
+};
 
 exports.getUserProfile = (req, res) => {
   UserProfile.find(req.query).exec((err, profile) => {
@@ -211,3 +227,23 @@ exports.getUserProfile = (req, res) => {
     }
   });
 };
+// exports.addUserProfile = (req, res) => {
+//   // console.log('added a profile', req.body);
+//   UserProfile.create(req.body, (err, made) => {
+//     if (err) {
+//       res.send(err);
+//     } else {
+//       res.status(201).send(made);
+//     }
+//   });
+// }
+
+// exports.getUserProfile = (req, res) => {
+//   UserProfile.find(req.query).exec((err, profile) => {
+//     if (err) {
+//       res.send(err);
+//     } else {
+//       res.send(profile);
+//     }
+//   });
+// };

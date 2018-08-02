@@ -76,7 +76,11 @@ export default class Competition extends Component {
             solutions: allSolutions,
             timerStop: true,
             time: document.getElementsByClassName('timer')[0].textContent,
-
+          });
+          const score = Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300) / this.state.time);
+          // add/update userProfile POST /userProfile
+          axios.post('/userprofiles', { username: this.props.user, points: score, badges: [] }).then((res) => {
+            // should we do something with this response?
           });
         });
       });
@@ -84,17 +88,14 @@ export default class Competition extends Component {
       .catch((err) => {
         console.error(err);
       });
-
   }
   updateState(newState) {
-    if(document.getElementsByClassName('timer')[0]){
-        this.setState({
-        });
-      
+    if (document.getElementsByClassName('timer')[0]){
+      this.setState({
+      });
     }
 
     this.setState(newState);
-
   }
 
   render() {
