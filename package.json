@@ -7,7 +7,7 @@
     "start": "node index.js",
     "webpack": "webpack",
     "server-dev": "nodemon index.js",
-    "setup": "npm install && npm run webpack && npm start"
+    "setup": "npm run webpack && npm start"
   },
   "repository": {
     "type": "git",
