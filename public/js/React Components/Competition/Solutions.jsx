@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-
+import SolutionsList from './SolutionsList';
 class Solutions extends Component {
   constructor(props) {
     super(props);
@@ -22,8 +22,9 @@ class Solutions extends Component {
     </CardMedia> */}
         {/* <CardTitle title="Card title" subtitle="Card subtitle" /> */}
         <CardText> 
-          "Solution Time:"{this.props.time} Points: {this.props.points}
+          Solution Time:{this.props.time} Points: {this.props.points}
           
+          {this.props.solutions.map(solution => <SolutionsList solution={solution} key={solution._id} />)}
         </CardText>
         {/* <CardActions>
       <FlatButton label="Action1" />
