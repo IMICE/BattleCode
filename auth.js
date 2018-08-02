@@ -1,7 +1,6 @@
 const GoogleAuth = require('google-auth-library');
-const config = require('./config.js');
 const auth = new GoogleAuth;
-const CLIENT_ID = config.CLIENT_ID;
+const CLIENT_ID = '211293983578-31ep5qbej79oebntrtn4rd3nbtqvemqc.apps.googleusercontent.com';
 const client = new auth.OAuth2(CLIENT_ID);
 exports.tokenCheck = (token, cb) => {
   client.verifyIdToken(
@@ -16,4 +15,3 @@ exports.tokenCheck = (token, cb) => {
     },
   );
 };
-
