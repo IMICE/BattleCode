@@ -38,6 +38,7 @@ export default class Competition extends Component {
       timerStop: false,
       tests: '',
       testPassedCount: 0,
+      confettiDone: false,
     };
     this.update = this.update.bind(this);
     this.getState = this.getState.bind(this);
@@ -77,6 +78,11 @@ export default class Competition extends Component {
             timerStop: true,
             time: document.getElementsByClassName('timer')[0].textContent,
           });
+          setTimeout(() => {
+            this.setState({
+              confettiDone: true,
+            });
+          }, 2000);
           const score = Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300) / this.state.time);
           // add/update userProfile POST /userProfile
           axios.post('/userprofiles', { username: this.props.user, points: score, badges: [] }).then((res) => {
@@ -120,7 +126,7 @@ export default class Competition extends Component {
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
           />
-          {this.state.passed ? <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
+          {this.state.confettiDone ? <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
             :
             <div className="MainCompetition">
               <CompetitionDescriptor
