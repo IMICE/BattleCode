@@ -39,9 +39,12 @@ io.on('connection', (socket) => {
     // }, 2000);
     socket.on('msg', (msgData) => {
       console.log(msgData, 'this is the emit from a win');
-      socket.to(room).emit('winner', msgData)
+      socket.to(room).emit('winner', msgData);
       // socket.disconnect();
     });
+  });
+  socket.on('SEND_MESSAGE', (chat) => {
+    io.emit('RECEIVE_MESSAGE', chat);
   });
   // socket.on('msg', (msgData) => {
   //   console.log(msgData, 'this is the emit from a win');
