@@ -20,7 +20,7 @@ export default class Test extends Component {
 
       setTimeout(() => {
         if (mocha.suite.suites[0].tests.every(test => test.state === 'passed')) {
-          document.getElementsByClassName('Confetti')[0].style.display = 'block';
+          // document.getElementsByClassName('Confetti')[0].style.display = 'block';
           if (this.props.passed === false) {
             this.props.update();
           }
