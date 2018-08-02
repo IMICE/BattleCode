@@ -64,6 +64,10 @@ export default class Competition extends Component {
     return this.state.solutions;
   }
   update() {
+    this.setState({
+      timerStop: true,
+      time: document.getElementsByClassName('timer')[0].textContent,
+    });
     axios.post('/gamewin', { email: this.props.user, gameId: this.props.testId }).then((res) => {
       axios.post('/solutions', { testId: this.props.testId, solution: this.props.userInput, username: this.props.user }).then((res) => {
         const testId = this.props.testId;
@@ -76,8 +80,6 @@ export default class Competition extends Component {
             updated: true,
             passed: true,
             solutions: allSolutions,
-            timerStop: true,
-            time: document.getElementsByClassName('timer')[0].textContent,
           });
           setTimeout(() => {
             this.setState({
