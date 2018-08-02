@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Badges from './Badges';
 import Rankings from './Rankings';
 import CompetitionSelect from '../Competition/CompetitionSelect';
+import Chat from '../Competition/chat';
 
 const DashBoard = props => (
   <MuiThemeProvider >
@@ -23,6 +24,9 @@ const DashBoard = props => (
           </div>
         </div>
       </Card>
+      <div>
+        <Chat />
+      </div>
     </div>
   </MuiThemeProvider >
 );
