@@ -23,8 +23,6 @@ const server = app.listen(port, (err) => {
     console.log('listening on port', port);
   }
 });
-// let users = 0;
-// const io = require('socket.io')(server);
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
@@ -34,9 +32,6 @@ io.on('connection', (socket) => {
     const room = data.testName;
     socket.join(room);
     socket.to(room).emit('new user join', [data.user]);
-    // setTimeout(() => {
-    //   socket.in('alpha').emit('new user join', data.user)
-    // }, 2000);
     socket.on('msg', (msgData) => {
       console.log(msgData, 'this is the emit from a win');
       socket.to(room).emit('winner', msgData);
@@ -46,11 +41,6 @@ io.on('connection', (socket) => {
   socket.on('SEND_MESSAGE', (chat) => {
     io.emit('RECEIVE_MESSAGE', chat);
   });
-  // socket.on('msg', (msgData) => {
-  //   console.log(msgData, 'this is the emit from a win');
-  //   socket.to(data.testName).emit(msgData)
-  //   socket.disconnect('room');
-  // });
 });
 
 app.post('/signin', (req, res) => {
