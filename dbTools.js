@@ -192,15 +192,7 @@ exports.getSolutions = (req, res) => {
   });
 };
 
-// sort cards by favorites
-const sort = (callback) => {
-  UserProfile.find()
-    .sort('-points')
-    .exec(callback);
-};
-
 exports.addUserProfile = (req, res) => {
-  console.log(req.body, 'req.body in dbTools');
   UserProfile.findOneAndUpdate({ username: req.body.username }, {
     username: req.body.username,
     $inc: { points: req.body.points },
@@ -211,39 +203,13 @@ exports.addUserProfile = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      // display cards sorted by favorites
-      // sort(callback);
       res.send('userProfile updated in db');
     }
   });
 };
 
-exports.getUserProfile = (req, res) => {
-  UserProfile.find(req.query).exec((err, profile) => {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(profile);
-    }
-  });
+exports.getUserProfile = (callback) => {
+  UserProfile.find()
+    .sort('-points')
+    .exec(callback);
 };
-// exports.addUserProfile = (req, res) => {
-//   // console.log('added a profile', req.body);
-//   UserProfile.create(req.body, (err, made) => {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       res.status(201).send(made);
-//     }
-//   });
-// }
-
-// exports.getUserProfile = (req, res) => {
-//   UserProfile.find(req.query).exec((err, profile) => {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       res.send(profile);
-//     }
-//   });
-// };

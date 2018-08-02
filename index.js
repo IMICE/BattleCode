@@ -60,4 +60,12 @@ app.get('/findUserById', db.findUserById);
 app.post('/solutions', db.addSolution);
 app.get('/solutions', db.getSolutions);
 app.post('/userprofiles', db.addUserProfile);
-app.get('/userprofiles', db.getUserProfile);
+app.get('/userprofiles', (req, res) => {
+  db.getUserProfile((err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
