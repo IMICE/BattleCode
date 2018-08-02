@@ -35,6 +35,8 @@ export default class Competition extends Component {
       solutions: [],
       time: '',
       timerStop: false,
+      tests: '',
+      testPassedCount: 0,
     };
     this.update = this.update.bind(this);
     this.getState = this.getState.bind(this);
@@ -49,6 +51,7 @@ export default class Competition extends Component {
         name: res.data[0].name,
         desc: res.data[0].description,
         testId: res.data[0]._id,
+        tests: res.data[0].tests,
       });
     });
   }
@@ -66,10 +69,14 @@ export default class Competition extends Component {
           params: { testId },
         }).then((res) => {
           const allSolutions = res.data;
+          
           this.setState({
             updated: true,
             passed: true,
             solutions: allSolutions,
+            timerStop: true,
+            time: document.getElementsByClassName('timer')[0].textContent,
+
           });
         });
       });
@@ -81,14 +88,13 @@ export default class Competition extends Component {
   }
   updateState(newState) {
     if(document.getElementsByClassName('timer')[0]){
-      this.setState({
-        time: document.getElementsByClassName('timer')[0].textContent,
-        timerStop: true,
-      });
+        this.setState({
+        });
+      
     }
-    
+
     this.setState(newState);
-    
+
   }
 
   render() {
@@ -143,7 +149,7 @@ export default class Competition extends Component {
             testId={this.state.testId}
           />
           
-          solutions  solution time: {this.state.time}
+          solution time: {this.state.time} Points: {Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time) }
           {this.state.passed ? this.state.solutions.map(solution => <SolutionsList solution={solution} key={solution._id} />)
             : <div />}
         </div>
