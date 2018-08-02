@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppBar, FontIcon, MuiThemeProvider } from 'material-ui';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import timer from 'react-timer-hoc';
 import Confetti from 'react-confetti';
 import axios from 'axios';
 import CompetitionDescriptor from './CompetitionDescriptor';
@@ -9,16 +10,24 @@ import TextEditor from './TextEditor';
 import TextEditorSettings from './TextEditorSettings';
 import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
+<<<<<<< HEAD
 import ReactDOM from 'react-dom';
 import SolutionsList from './SolutionsList.jsx';
 import timer from 'react-timer-hoc';
+=======
+import SolutionsList from './SolutionsList';
+
+>>>>>>> d60d682788b0aec99cef7e49ac1a43d1aae52987
 function Counter({ timer }) {
-  return <div>{timer.tick}</div>
+  return <div className="timer">{timer.tick}</div>
 }
 
 const timer1000 = timer(1000);
 const Timer1 = timer1000(Counter);
+<<<<<<< HEAD
 const timeNow = Date.now();
+=======
+>>>>>>> d60d682788b0aec99cef7e49ac1a43d1aae52987
 
 export default class Competition extends Component {
   constructor(props) {
@@ -34,6 +43,10 @@ export default class Competition extends Component {
       passed: false,
       updated: false,
       solutions: [],
+      time: '',
+      timerStop: false,
+      tests: '',
+      testPassedCount: 0,
     };
     this.update = this.update.bind(this);
     this.getState = this.getState.bind(this);
@@ -48,6 +61,7 @@ export default class Competition extends Component {
         name: res.data[0].name,
         desc: res.data[0].description,
         testId: res.data[0]._id,
+        tests: res.data[0].tests,
       });
     });
   }
@@ -65,10 +79,14 @@ export default class Competition extends Component {
           params: { testId },
         }).then((res) => {
           const allSolutions = res.data;
+          
           this.setState({
             updated: true,
             passed: true,
             solutions: allSolutions,
+            timerStop: true,
+            time: document.getElementsByClassName('timer')[0].textContent,
+
           });
         });
       });
@@ -76,10 +94,17 @@ export default class Competition extends Component {
       .catch((err) => {
         console.error(err);
       });
+
   }
-  // post the test id to the solutions schema here
   updateState(newState) {
+    if(document.getElementsByClassName('timer')[0]){
+        this.setState({
+        });
+      
+    }
+
     this.setState(newState);
+
   }
 
   render() {
@@ -120,7 +145,7 @@ export default class Competition extends Component {
               updated={this.state.updated}
 
             />
-            Timer: <div className="timer"><Timer1 /> </div>
+            Timer: {this.state.timerStop? <div>{this.state.time }</div>: <Timer1 />} 
             <TextEditor
               className="TextEditor"
               mode={mode}
@@ -134,7 +159,7 @@ export default class Competition extends Component {
             testId={this.state.testId}
           />
           
-          solutions
+          solution time: {this.state.time} Points: {Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time) }
           {this.state.passed ? this.state.solutions.map(solution => <SolutionsList solution={solution} key={solution._id} />)
             : <div />}
         </div>
