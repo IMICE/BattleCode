@@ -9,13 +9,20 @@ import TextEditor from './TextEditor';
 import TextEditorSettings from './TextEditorSettings';
 import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
+import ReactDOM from 'react-dom';
+import timer from 'react-timer-hoc';
+function Counter({ timer }) {
+  return <div>{timer.tick}</div>
+}
+
+const timer1000 = timer(1000);
+const Timer1 = timer1000(Counter);
+const timeNow = Date.now();
+import SolutionsList from './SolutionsList.jsx';
 
 export default class Competition extends Component {
   constructor(props) {
     super(props);
-    ///////////////////////////
-    // add a solutions state here?
-    ///////////////////////
     this.state = {
       mode: 'javascript',
       theme: 'blackboard',
@@ -24,14 +31,18 @@ export default class Competition extends Component {
       name: '',
       desc: '',
       id: '',
+      passed: false,
+      updated: false,
+      solutions: [],
     };
+    this.update = this.update.bind(this);
+    this.getState = this.getState.bind(this);
+    this.getSolutions = this.getSolutions.bind(this);
+    this.updateState = this.updateState.bind(this);
 
     axios.post('/uniquecompetition', {
       id: window.location.hash.split('?id=')[1],
     }).then(res => {
-      ////////////////////
-      console.log(res.data, 'res.data of POST /uniquecompetition in Competition.jsx');
-      /////////////////////////////
       this.setState({
         test: parseToMocha(res.data[0].tests, res.data[0].name),
         name: res.data[0].name,
@@ -39,12 +50,36 @@ export default class Competition extends Component {
         testId: res.data[0]._id,
       });
     });
-    this.updateState = this.updateState.bind(this);
+  }
+  getState() {
+    return this.state.passed;
+  }
+  getSolutions() {
+    return this.state.solutions;
+  }
+  update() {
+    axios.post('/gamewin', { email: this.props.user, gameId: this.props.testId }).then((res) => {
+      axios.post('/solutions', { testId: this.props.testId, solution: this.props.userInput, username: this.props.user }).then((res) => {
+        const testId = this.props.testId;
+        axios.get('/solutions', {
+          params: { testId },
+        }).then((res) => {
+          const allSolutions = res.data;
+          this.setState({
+            updated: true,
+            passed: true,
+            solutions: allSolutions,
+          });
+        });
+      });
+    })
+      .catch((err) => {
+        console.error(err);
+      });
   }
   // post the test id to the solutions schema here
   updateState(newState) {
     this.setState(newState);
-    console.log(newState, 'newState from updateState called in Competition.jsx');
   }
 
   render() {
@@ -55,6 +90,7 @@ export default class Competition extends Component {
       <MuiThemeProvider>
         <div className="Competition">
           <Confetti className="Confetti" />
+          
           <AppBar
             title="Challenge"
             style={{ backgroundColor: '#4FB5DB' }}
@@ -69,6 +105,7 @@ export default class Competition extends Component {
               <TextEditorSettings updateState={this.updateState} />}
           />
           <div className="MainCompetition">
+          
             <CompetitionDescriptor
               updateState={this.updateState}
               userInput={userInput}
@@ -77,7 +114,13 @@ export default class Competition extends Component {
               desc={desc}
               user={this.props.user}
               testId={this.state.testId}
+              update={this.update}
+              getState={this.getState}
+              getSolutions={this.getSolutions}
+              updated={this.state.updated}
+
             />
+            Timer: <div className="timer"><Timer1 /> </div>
             <TextEditor
               className="TextEditor"
               mode={mode}
@@ -90,6 +133,10 @@ export default class Competition extends Component {
             className="WinShare"
             testId={this.state.testId}
           />
+          
+          solutions
+          {this.state.passed ? this.state.solutions.map(solution => <SolutionsList solution={solution} key={solution._id} />)
+            : <div />}
         </div>
       </MuiThemeProvider>
     );
