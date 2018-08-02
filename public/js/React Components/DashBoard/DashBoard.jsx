@@ -17,6 +17,9 @@ const DashBoard = props => (
           <Link to="CreateCompetition">
             <RaisedButton fullWidth label="Create A Challenge" />
           </Link>
+          <div>
+            <Chat user={props.user} />
+          </div>
           <div style={{ textAlign: 'center' }}>Welcome {props.user.slice(0, props.user.indexOf('@'))}!</div>
           <div className="DashBoardFlex">
             <Badges />
@@ -24,9 +27,6 @@ const DashBoard = props => (
           </div>
         </div>
       </Card>
-      <div>
-        <Chat />
-      </div>
     </div>
   </MuiThemeProvider >
 );
