@@ -51,8 +51,8 @@ const solutionSchema = new Schema({
 const userProfileSchema = new Schema({
   username: String,
   points: Number,
-  wins: Number,
   badges: Array,
+  // wins: Number,
 });
 const Challenge = mongoose.model('Challenge', challengeSchema);
 const User = mongoose.model('User', userSchema);
@@ -191,23 +191,25 @@ exports.getSolutions = (req, res) => {
     }
   });
 };
-exports.addUserProfile = (req, res) => {
-  // console.log('added a profile', req.body);
-  UserProfile.create(req.body, (err, made) => {
-    if (err) {
-      res.send(err);
-    } else {
-      res.status(201).send(made);
-    }
-  });
-}
 
-exports.getUserProfile = (req, res) => {
-  UserProfile.find(req.query).exec((err, profile) => {
+exports.addUserProfile = (req, res) => {
+  UserProfile.findOneAndUpdate({ username: req.body.username }, {
+    username: req.body.username,
+    $inc: { points: req.body.points },
+    badges: req.body.badges,
+  }, { upsert: true, new: true, runValidators: true }, // options
+    // callback
+  (err, doc) => {
     if (err) {
-      res.send(err);
+      console.log(err);
     } else {
-      res.send(profile);
+      res.send('userProfile updated in db');
     }
   });
+};
+
+exports.getUserProfile = (callback) => {
+  UserProfile.find()
+    .sort('-points')
+    .exec(callback);
 };
