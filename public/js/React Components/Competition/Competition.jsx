@@ -11,14 +11,14 @@ import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
 import ReactDOM from 'react-dom';
 import timer from 'react-timer-hoc';
+
 function Counter({ timer }) {
-  return <div>{timer.tick}</div>
+  return <div className="timer">{timer.tick}</div>
 }
 
 const timer1000 = timer(1000);
 const Timer1 = timer1000(Counter);
 const timeNow = Date.now();
-import SolutionsList from './SolutionsList.jsx';
 
 export default class Competition extends Component {
   constructor(props) {
@@ -34,6 +34,7 @@ export default class Competition extends Component {
       passed: false,
       updated: false,
       solutions: [],
+      time: '',
     };
     this.update = this.update.bind(this);
     this.getState = this.getState.bind(this);
@@ -76,10 +77,15 @@ export default class Competition extends Component {
       .catch((err) => {
         console.error(err);
       });
+
   }
-  // post the test id to the solutions schema here
   updateState(newState) {
+
     this.setState(newState);
+    this.setState({
+      time: document.getElementsByClassName('timer')[0].textContent,
+      
+    });
   }
 
   render() {
@@ -120,7 +126,7 @@ export default class Competition extends Component {
               updated={this.state.updated}
 
             />
-            Timer: <div className="timer"><Timer1 /> </div>
+            Timer: <Timer1 />  
             <TextEditor
               className="TextEditor"
               mode={mode}
@@ -134,7 +140,7 @@ export default class Competition extends Component {
             testId={this.state.testId}
           />
           
-          solutions
+          solutions  solution time: {this.state.time}
           {this.state.passed ? this.state.solutions.map(solution => <SolutionsList solution={solution} key={solution._id} />)
             : <div />}
         </div>
