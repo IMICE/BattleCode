@@ -4,7 +4,7 @@ export default class Badges extends Component {
   constructor() {
     super();
     this.state = {
-      BadgesList: [['Seaman Apprentice', '1000'], ['Seaman', 5000],['Able Seaman', 10000], ['Boatswain', 20000],
+      BadgesList: [['Deck Swabber', 0],['Seaman Apprentice', 1000], ['Seaman', 5000],['Able Seaman', 10000], ['Boatswain', 20000],
       ['Third Mate', 30000], ['Second Mate', 40000], ['First Mate', 100000], ['Captain', 200000], ['Admiral', 1000000000]]
     };
   localStorage.setItem('badges', this.state.BadgesList);
