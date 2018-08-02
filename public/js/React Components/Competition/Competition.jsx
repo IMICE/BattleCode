@@ -10,24 +10,14 @@ import TextEditor from './TextEditor';
 import TextEditorSettings from './TextEditorSettings';
 import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
-<<<<<<< HEAD
-import ReactDOM from 'react-dom';
-import SolutionsList from './SolutionsList.jsx';
-import timer from 'react-timer-hoc';
-=======
 import SolutionsList from './SolutionsList';
 
->>>>>>> d60d682788b0aec99cef7e49ac1a43d1aae52987
 function Counter({ timer }) {
   return <div className="timer">{timer.tick}</div>
 }
 
 const timer1000 = timer(1000);
 const Timer1 = timer1000(Counter);
-<<<<<<< HEAD
-const timeNow = Date.now();
-=======
->>>>>>> d60d682788b0aec99cef7e49ac1a43d1aae52987
 
 export default class Competition extends Component {
   constructor(props) {
