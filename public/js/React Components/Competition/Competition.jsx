@@ -44,7 +44,6 @@ export default class Competition extends Component {
     this.getState = this.getState.bind(this);
     this.getSolutions = this.getSolutions.bind(this);
     this.updateState = this.updateState.bind(this);
-
     axios.post('/uniquecompetition', {
       id: window.location.hash.split('?id=')[1],
     }).then(res => {
@@ -121,7 +120,10 @@ export default class Competition extends Component {
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
           />
-          {this.state.passed ?<Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
+          {this.state.passed ? (setTimeout(() => {
+            
+            <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/>
+          }, 2000))()
             : 
           <div className="MainCompetition">
             <CompetitionDescriptor
