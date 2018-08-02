@@ -120,10 +120,9 @@ export default class Competition extends Component {
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
           />
-          {this.state.passed ? (setTimeout(() => {
-            
+          
+          {this.state.passed ? 
             <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/>
-          }, 2000))()
             : 
           <div className="MainCompetition">
             <CompetitionDescriptor
