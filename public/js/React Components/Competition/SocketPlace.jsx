@@ -31,7 +31,7 @@ export default class SocketPlace extends Component {
       if (this.props.passed()) {
         // console.log(this.props.user.slice(0, this.props.user.indexOf('@')));
         socket.emit('msg', `${this.props.user.slice(0, this.props.user.indexOf('@'))} won!`);
-        clearInterval(winCheck)
+        clearInterval(winCheck);
       }
     }, 20);
   }
@@ -48,7 +48,7 @@ export default class SocketPlace extends Component {
       return (
         <div>
           {/* {setTimeout(() => console.log(user, players), 1000)} */}
-          <h3>{this.state.winner}</h3>
+          <h3>{this.state.winner}</h3> <br /> Chat About It!
         </div>
       );
     }
