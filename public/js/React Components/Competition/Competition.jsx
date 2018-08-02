@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppBar, FontIcon, MuiThemeProvider } from 'material-ui';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import timer from 'react-timer-hoc';
 import Confetti from 'react-confetti';
 import axios from 'axios';
 import CompetitionDescriptor from './CompetitionDescriptor';
@@ -9,8 +10,7 @@ import TextEditor from './TextEditor';
 import TextEditorSettings from './TextEditorSettings';
 import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
-import ReactDOM from 'react-dom';
-import timer from 'react-timer-hoc';
+import SolutionsList from './SolutionsList';
 
 function Counter({ timer }) {
   return <div className="timer">{timer.tick}</div>
@@ -18,7 +18,6 @@ function Counter({ timer }) {
 
 const timer1000 = timer(1000);
 const Timer1 = timer1000(Counter);
-const timeNow = Date.now();
 
 export default class Competition extends Component {
   constructor(props) {
@@ -35,6 +34,7 @@ export default class Competition extends Component {
       updated: false,
       solutions: [],
       time: '',
+      timerStop: false,
     };
     this.update = this.update.bind(this);
     this.getState = this.getState.bind(this);
@@ -80,12 +80,15 @@ export default class Competition extends Component {
 
   }
   updateState(newState) {
-
+    if(document.getElementsByClassName('timer')[0]){
+      this.setState({
+        time: document.getElementsByClassName('timer')[0].textContent,
+        timerStop: true,
+      });
+    }
+    
     this.setState(newState);
-    this.setState({
-      time: document.getElementsByClassName('timer')[0].textContent,
-      
-    });
+    
   }
 
   render() {
@@ -126,7 +129,7 @@ export default class Competition extends Component {
               updated={this.state.updated}
 
             />
-            Timer: <Timer1 />  
+            Timer: {this.state.timerStop? <div>{this.state.time }</div>: <Timer1 />} 
             <TextEditor
               className="TextEditor"
               mode={mode}
