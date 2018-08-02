@@ -13,7 +13,6 @@ import WinShare from './WinShare';
 import SolutionsList from './SolutionsList';
 import Solutions from './Solutions';
 
-
 function Counter({ timer }) {
   return <div className="timer">{timer.tick}</div>
 }
@@ -77,7 +76,11 @@ export default class Competition extends Component {
             solutions: allSolutions,
             timerStop: true,
             time: document.getElementsByClassName('timer')[0].textContent,
-
+          });
+          const score = Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300) / this.state.time);
+          // add/update userProfile POST /userProfile
+          axios.post('/userprofiles', { username: this.props.user, points: score, badges: [] }).then((res) => {
+            // should we do something with this response?
           });
         });
       });
@@ -85,17 +88,14 @@ export default class Competition extends Component {
       .catch((err) => {
         console.error(err);
       });
-
   }
   updateState(newState) {
-    if(document.getElementsByClassName('timer')[0]){
-        this.setState({
-        });
-      
+    if (document.getElementsByClassName('timer')[0]){
+      this.setState({
+      });
     }
 
     this.setState(newState);
-
   }
 
   render() {
@@ -120,6 +120,7 @@ export default class Competition extends Component {
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
           />
+<<<<<<< HEAD
           
           {this.state.passed ? 
             <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/>
@@ -137,23 +138,38 @@ export default class Competition extends Component {
               getState={this.getState}
               getSolutions={this.getSolutions}
               updated={this.state.updated}
+=======
+          {this.state.passed ? <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
+            :
+            <div className="MainCompetition">
+              <CompetitionDescriptor
+                updateState={this.updateState}
+                userInput={userInput}
+                test={test}
+                name={name}
+                desc={desc}
+                user={this.props.user}
+                testId={this.state.testId}
+                update={this.update}
+                getState={this.getState}
+                getSolutions={this.getSolutions}
+                updated={this.state.updated}
+>>>>>>> 2ccfff5add8f1b5892ec68f29fcad282c9a508a0
 
-            />
+              />
             Timer: {this.state.timerStop? <div>{this.state.time }</div>: <Timer1 />} 
-            <TextEditor
-              className="TextEditor"
-              mode={mode}
-              theme={theme}
-              userInput={userInput}
-              updateState={this.updateState}
-            />
-          </div>}
+              <TextEditor
+                className="TextEditor"
+                mode={mode}
+                theme={theme}
+                userInput={userInput}
+                updateState={this.updateState}
+              />
+            </div>}
           <WinShare
             className="WinShare"
             testId={this.state.testId}
           />
-          
-          
         </div>
       </MuiThemeProvider>
     );
