@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "webpack": "webpack -w",
+    "webpack": "webpack",
     "server-dev": "nodemon index.js",
-    "setup": "npm start"
+    "setup": "npm install && npm run webpack && npm start"
   },
   "repository": {
     "type": "git",
