@@ -47,7 +47,7 @@ export default class Rankings extends Component {
     const userRankings = this.state.userRankings.map((e, i) => (
       <li key={e.username} className="RankList">
         <p>
-          {console.log(e, 'e in Rankings')}
+          {/* {console.log(e, 'e in Rankings')} */}
           <b> {i + 1}. </b>
           <span> {e.username} Points: {e.points}</span>
         </p>
