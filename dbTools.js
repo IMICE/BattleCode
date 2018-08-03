@@ -141,6 +141,7 @@ exports.findUserById = (req, res) => {
 
 exports.gameWin = (req, res) => {
   User.findOne({ email: req.body.email }).exec((foundError, suc) => {
+    console.log(req.body)
     if (foundError) {
       res.send(foundError);
     } else {

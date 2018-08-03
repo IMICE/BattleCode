@@ -41,6 +41,10 @@ io.on('connection', (socket) => {
   socket.on('SEND_MESSAGE', (chat) => {
     io.emit('RECEIVE_MESSAGE', chat);
   });
+
+  socket.on('POST_GAME_SEND_MESSAGE', (chat) => {
+    io.emit('POST_GAME_RECEIVE_MESSAGE', chat);
+  });
 });
 
 app.post('/signin', (req, res) => {
