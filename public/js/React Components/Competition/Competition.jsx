@@ -134,9 +134,10 @@ export default class Competition extends Component {
             }
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
-              
+
           />
-          {this.state.confettiDone ? <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
+
+          {this.state.confettiDone ? <Solutions user={this.props.user} solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/>
             :
             <div>
               <div>

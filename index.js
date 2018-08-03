@@ -41,10 +41,20 @@ io.on('connection', (socket) => {
   socket.on('SEND_MESSAGE', (chat) => {
     io.emit('RECEIVE_MESSAGE', chat);
   });
+
+  socket.on('POST_GAME_SEND_MESSAGE', (chat) => {
+    io.emit('POST_GAME_RECEIVE_MESSAGE', chat);
+  });
+
+  socket.on('GIF_SEND_MESSAGE', (chat) => {
+    io.emit('GIF_RECEIVE_MESSAGE', chat);
+  });
 });
 
 app.post('/signin', (req, res) => {
   auth.tokenCheck(req.body.accessToken, (gUserData) => {
+    console.log(req.body)
+    console.log(gUserData, 'Guser data Server2')
 
     db.findUser(gUserData, (bcUserProfile) => {
       res.status(200).send(bcUserProfile);
