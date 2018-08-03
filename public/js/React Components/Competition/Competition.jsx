@@ -79,7 +79,6 @@ export default class Competition extends Component {
       });
     }
 
-    axios.post('/gamewin', { email: this.props.user, gameId: this.state.testId }).then((res) => {
       axios.post('/solutions', { testId: this.state.testId, solution: this.state.userInput, username: this.props.user }).then((res) => {
         const testId = this.state.testId;
         axios.get('/solutions', {
@@ -100,7 +99,6 @@ export default class Competition extends Component {
             // should we do something with this response?
           });
         });
-      });
     })
       .catch((err) => {
         console.error(err);
