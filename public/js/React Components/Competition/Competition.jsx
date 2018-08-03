@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import timer from 'react-timer-hoc';
 import Confetti from 'react-confetti';
 import axios from 'axios';
+import Sound from 'react-sound';
+import Paper from 'material-ui/Paper';
 import CompetitionDescriptor from './CompetitionDescriptor';
 import TextEditor from './TextEditor';
 import TextEditorSettings from './TextEditorSettings';
@@ -12,7 +14,6 @@ import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
 import SolutionsList from './SolutionsList';
 import Solutions from './Solutions';
-import Paper from 'material-ui/Paper';
 
 function Counter({ timer }) {
   return <div className="timer">{timer.tick}</div>
@@ -41,6 +42,7 @@ export default class Competition extends Component {
       testPassedCount: 0,
       confettiDone: false,
       testId: '',
+      cannonFire: false,
     };
     this.update = this.update.bind(this);
     this.getState = this.getState.bind(this);
@@ -166,6 +168,15 @@ export default class Competition extends Component {
                   updateState={this.updateState}
                 />
               </div>
+              { this.state.cannonFire ?
+                <div>
+                  <Sound
+                    url="http://freesound.org/data/previews/388/388527_6823432-lq.mp3"
+                    playStatus={Sound.status.PLAYING}
+                  />
+                  {this.setState({ cannonFire: false })}
+                </div>
+                : <div /> }
             </div>}
           <WinShare
             className="WinShare"
