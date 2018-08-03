@@ -64,6 +64,10 @@ export default class Competition extends Component {
     return this.state.solutions;
   }
   update() {
+    this.setState({
+      timerStop: true,
+      time: document.getElementsByClassName('timer')[0].textContent,
+    });
     axios.post('/gamewin', { email: this.props.user, gameId: this.props.testId }).then((res) => {
       axios.post('/solutions', { testId: this.props.testId, solution: this.props.userInput, username: this.props.user }).then((res) => {
         const testId = this.props.testId;
@@ -76,8 +80,6 @@ export default class Competition extends Component {
             updated: true,
             passed: true,
             solutions: allSolutions,
-            timerStop: true,
-            time: document.getElementsByClassName('timer')[0].textContent,
           });
           setTimeout(() => {
             this.setState({
@@ -127,35 +129,37 @@ export default class Competition extends Component {
               <TextEditorSettings updateState={this.updateState} />}
               
           />
-          <div>
-            <Paper style={{ margin: 10, textAlign: 'center', display: 'inline-block' }} zDepth={2}>
-              Timer: {this.state.timerStop ? <div>{this.state.time}</div> : <Timer1 />}</Paper>
-          </div>
+          
           {this.state.confettiDone ? <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
             :
-            <div className="MainCompetition">
-              <CompetitionDescriptor
-                updateState={this.updateState}
-                userInput={userInput}
-                test={test}
-                name={name}
-                desc={desc}
-                user={this.props.user}
-                testId={this.state.testId}
-                update={this.update}
-                getState={this.getState}
-                getSolutions={this.getSolutions}
-                updated={this.state.updated}
+            <div>
+              <div>
+                <Paper style={{ margin: 10, textAlign: 'center', display: 'inline-block' }} zDepth={2}>
+                  Timer: {this.state.timerStop ? <div>{this.state.time}</div> : <Timer1 />}</Paper>
+              </div>
+              <div className="MainCompetition">
+                <CompetitionDescriptor
+                  updateState={this.updateState}
+                  userInput={userInput}
+                  test={test}
+                  name={name}
+                  desc={desc}
+                  user={this.props.user}
+                  testId={this.state.testId}
+                  update={this.update}
+                  getState={this.getState}
+                  getSolutions={this.getSolutions}
+                  updated={this.state.updated}
 
-              />
-            {/* Timer: {this.state.timerStop? <div>{this.state.time }</div>: <Timer1 />}  */}
-              <TextEditor
-                className="TextEditor"
-                mode={mode}
-                theme={theme}
-                userInput={userInput}
-                updateState={this.updateState}
-              />
+                />
+                <TextEditor
+                  className="TextEditor"
+                  mode={mode}
+                  theme={theme}
+                  userInput={userInput}
+                  updateState={this.updateState}
+                />
+              </div>
             </div>}
           <WinShare
             className="WinShare"
