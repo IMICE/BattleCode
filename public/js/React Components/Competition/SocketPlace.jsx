@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import io from 'socket.io-client';
+import Sound from 'react-sound';
 
 const socket = io();
 
@@ -48,7 +49,13 @@ export default class SocketPlace extends Component {
       return (
         <div>
           {/* {setTimeout(() => console.log(user, players), 1000)} */}
-          <h3>{this.state.winner}</h3> <br/>
+          <h3>{this.state.winner}</h3> <br />
+          <div>
+            <Sound
+              url="http://freesound.org/data/previews/388/388527_6823432-lq.mp3"
+              playStatus={Sound.status.PLAYING}
+            />
+          </div>
           <h4>You lost, but try to solve the problem anyway</h4>
           <img src={"https://gifimage.net/wp-content/uploads/2017/06/poop-gif-11.gif"}></img>
           Chat About It!
