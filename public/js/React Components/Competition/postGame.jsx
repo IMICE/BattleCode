@@ -42,7 +42,7 @@ export default class PostGame extends Component {
           <div className="col-12">
             <div className="card">
               <div className="card-body">
-                <div className="card-title">Global Chat</div>
+                <div className="card-title">Post Game Chat</div>
                 <hr />
                 <div className="messages">
                   {this.state.messages.map(message => (
