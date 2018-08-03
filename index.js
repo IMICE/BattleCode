@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 5000;
 app.set('port', port);
 const server = app.listen(port, (err) => {
   if (err) {
@@ -44,6 +44,10 @@ io.on('connection', (socket) => {
 
   socket.on('POST_GAME_SEND_MESSAGE', (chat) => {
     io.emit('POST_GAME_RECEIVE_MESSAGE', chat);
+  });
+
+  socket.on('GIF_SEND_MESSAGE', (chat) => {
+    io.emit('GIF_RECEIVE_MESSAGE', chat);
   });
 });
 
