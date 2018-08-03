@@ -71,7 +71,7 @@ export default class Competition extends Component {
       this.setState({
         confettiDone: true,
       });
-    }, 2000);
+    }, 4000);
     if (document.getElementsByClassName('timer')[0].textContent) {
       this.setState({
         timerStop: true,
@@ -122,7 +122,8 @@ export default class Competition extends Component {
     } return (
       <MuiThemeProvider>
         <div className="Competition">
-          <Confetti className="Confetti" />
+          <Confetti className="Confetti"
+          />
           <AppBar
             title="Challenge"
             style={{ backgroundColor: '#4FB5DB' }}
@@ -137,7 +138,6 @@ export default class Competition extends Component {
               <TextEditorSettings updateState={this.updateState} />}
               
           />
-          
           {this.state.confettiDone ? <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
             :
             <div>

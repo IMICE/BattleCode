@@ -12,16 +12,21 @@ export default class Signin extends Component {
     this.state = {
       userLoginLoaded: false,
       user: null,
+      clicked: false,
     };
     this.responseGoogle = this.responseGoogle.bind(this);
   }
-
+  handleClick() {
+    console.log('handleClick called')
+    this.setState({
+      clicked: true,
+    });
+  }
   responseGoogle(googleUser) {
     const idToken = googleUser.getAuthResponse().id_token;
     const profile = googleUser.getBasicProfile();
     const userEmail = profile.getEmail();
     console.log({ accessToken: idToken, email: userEmail, userProfile: profile });
-
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/signin', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -41,6 +46,15 @@ export default class Signin extends Component {
         <Card>
           <div className="col-md-12 Signin">
             <Script url="https://apis.google.com/js/platform.js" />
+            {this.state.clicked ?
+              <div>
+                {console.log('clicked')}
+                <Sound
+                  url="http://freesound.org/data/previews/32/32304_37876-lq.mp3"
+                  playStatus={Sound.status.PLAYING}
+                />
+              </div> : <div />
+            }
             {this.state.userLoginLoaded ? <Redirect to="/dash" /> : <div />}
             <div id="boat">
               <img className="animated" src={boat} alt="battle boat" />
@@ -57,6 +71,7 @@ export default class Signin extends Component {
             <h3 className="headers">Compete against others to prove your coding skills!</h3>
             <CardText className="signin-buttons">
               <GoogleLogin
+                onClick={this.handleClick}
                 socialId="106454631553-mles8i7ktt96qbvps7uoh2k9idop90e0.apps.googleusercontent.com"
                 className="login-btn"
                 scope="https://www.googleapis.com/auth/userinfo.email"
