@@ -11,7 +11,7 @@ export default class Rankings extends Component {
     };
     this.getBadge = this.getBadge.bind(this);
     this.emblems = {
-      'Seaman Recruit': '',
+      'Seaman Recruit': 'https://www.military-ranks.org/images/ranks/navy/large/seaman-recruit.png',
       'Seaman Apprentice': 'https://www.military-ranks.org/images/ranks/navy/large/seaman-apprentice.png',
       'Seaman': 'https://www.military-ranks.org/images/ranks/navy/large/seaman.png',
       'Command Master Chief Petty Officer': 'https://www.military-ranks.org/images/ranks/navy/large/command-master-chief-petty-officer.png',
