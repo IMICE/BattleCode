@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { Card, CardText, MuiThemeProvider } from 'material-ui';
 import Script from 'react-load-script';
 import { GoogleLogin } from 'react-google-login-component';
+import Sound from 'react-sound';
 import boat from '../../../../images/SSBattleCode.png';
 
 export default class Signin extends Component {
@@ -19,7 +20,7 @@ export default class Signin extends Component {
     const idToken = googleUser.getAuthResponse().id_token;
     const profile = googleUser.getBasicProfile();
     const userEmail = profile.getEmail();
-    console.log({ accessToken: idToken, email: userEmail });
+    console.log({ accessToken: idToken, email: userEmail, userProfile: profile });
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/signin', true);
@@ -43,6 +44,14 @@ export default class Signin extends Component {
             {this.state.userLoginLoaded ? <Redirect to="/dash" /> : <div />}
             <div id="boat">
               <img className="animated" src={boat} alt="battle boat" />
+            </div>
+            <div>
+              <Sound
+                url="http://freesound.org/data/previews/93/93678_1386366-lq.mp3"
+                // url="http://freesound.org/data/previews/71/71123_1039875-lq.mp3"      
+                playStatus={Sound.status.PLAYING}
+                loop={true}
+              />
             </div>
             <h1 className="headers">BattleCode!</h1>
             <h3 className="headers">Compete against others to prove your coding skills!</h3>
