@@ -4,23 +4,34 @@ export default class Badges extends Component {
   constructor() {
     super();
     this.state = {
-      BadgesList: [['Deck Swabber', 0],['Seaman Apprentice', 1000], ['Seaman', 5000],['Able Seaman', 10000], ['Boatswain', 20000],
-      ['Third Mate', 30000], ['Second Mate', 40000], ['First Mate', 100000], ['Captain', 200000], ['Admiral', 1000000000]]
+      BadgesList: [
+        ['Seaman Recruit', 0, 'https://www.military-ranks.org/images/ranks/navy/large/seaman-recruit.png'],
+        ['Seaman Apprentice', 1000, 'https://www.military-ranks.org/images/ranks/navy/large/seaman-apprentice.png'],
+        ['Seaman', 5000, 'https://www.military-ranks.org/images/ranks/navy/large/seaman.png'],
+        ['Command Master Chief Petty Officer', 10000, 'https://www.military-ranks.org/images/ranks/navy/large/command-master-chief-petty-officer.png'],
+        ['Ensign', 20000, 'https://www.military-ranks.org/images/ranks/navy/large/ensign.png'],
+        ['Lieutenant', 40000, 'https://www.military-ranks.org/images/ranks/navy/large/lieutenant.png'],
+        ['Commander', 100000, 'https://www.military-ranks.org/images/ranks/navy/large/commander.png'],
+        ['Captain', 200000, 'https://www.military-ranks.org/images/ranks/navy/large/captain.png'],
+        ['Admiral', 1000000000, 'https://www.military-ranks.org/images/ranks/navy/large/admiral.png'],
+      ],
     };
-  localStorage.setItem('badges', this.state.BadgesList);
-
+    localStorage.setItem('badges', this.state.BadgesList);
   }
   render() {
     const BadgesList = this.state.BadgesList.map(e => (
-      <div key={e[1]}>
-      <li >
-      <ul><b>{e[0]} </b></ul>
-      </li>
-      <li>
-        <ul> {e[1]} points</ul>
-        </li>
-        </div>
       
+      <div className="list-group" key={e[1]}>
+        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+          <div className="d-flex w-100 justify-content-between">
+            <img className="mr-3" src={e[2]} alt="emblem image" height="50px" width="50px"></img>
+            {/* <h5 className="mb-1">{e[0]}</h5> */}
+            {/* <small className="text-muted">{i + 1}</small> */}
+          </div>
+          <p className="mb-1">{e[0]}</p>
+          <small className="text-muted">{e[1]} points</small>
+        </a>
+      </div>
     ));
     return (
       <div className="DashBoardHalf">

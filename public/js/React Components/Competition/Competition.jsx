@@ -70,12 +70,12 @@ export default class Competition extends Component {
         confettiDone: true,
       });
     }, 2000);
-    if(document.getElementsByClassName('timer')[0].textContent){
-    this.setState({
-      timerStop: true,
-            time: document.getElementsByClassName('timer')[0].textContent,
-    });
-  }
+    if (document.getElementsByClassName('timer')[0].textContent) {
+      this.setState({
+        timerStop: true,
+        time: document.getElementsByClassName('timer')[0].textContent,
+      });
+    }
 
     axios.post('/gamewin', { email: this.props.user, gameId: this.state.testId }).then((res) => {
       axios.post('/solutions', { testId: this.state.testId, solution: this.state.userInput, username: this.props.user }).then((res) => {
