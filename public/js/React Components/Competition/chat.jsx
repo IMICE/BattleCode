@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
-
+const config = require('./../../../../config.js');
+// /home/josh/BattleCode/public/js/React Components/Competition/chat.jsx
+// /home/josh/BattleCode/config.js
 export default class Chat extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,7 @@ export default class Chat extends Component {
         e.preventDefault();
         this.sendMessage(e);
       }
-      // this.getGif('poop');
+      this.getGif('poop');
     };
 
     this.sendMessage = (ev) => {
@@ -40,7 +42,7 @@ export default class Chat extends Component {
       this.setState({ message: '' });
     };
     this.getGif = (query) => {
-      const api_key= 'cipCnvIV4PjYoVFWI4y299aXO62gyxy2';
+      const api_key= config.GIPHY;
       axios.get(`http://api.giphy.com/v1/gifs/search?q=poop&api_key=${api_key}`)
         .then((response) => {
           let results = response.data.data[0];
@@ -68,7 +70,7 @@ export default class Chat extends Component {
               <div className="card-body">
                 <div className="card-title">Global Chat</div>
                 <hr />
-                {/* <img src={this.state.GIF}></img> */}
+                <img src={this.state.GIF}></img>
                 <div className="messages">
                   {this.state.messages.map(message => (
                     <div>{message.author}: {message.message}</div>
