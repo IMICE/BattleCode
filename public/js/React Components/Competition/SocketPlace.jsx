@@ -48,7 +48,10 @@ export default class SocketPlace extends Component {
       return (
         <div>
           {/* {setTimeout(() => console.log(user, players), 1000)} */}
-          <h3>{this.state.winner}</h3> <br /> Chat About It!
+          <h3>{this.state.winner}</h3> <br/>
+          <h4>You lost, but try to solve the problem anyway</h4>
+          <img src={"https://gifimage.net/wp-content/uploads/2017/06/poop-gif-11.gif"}></img>
+          Chat About It!
         </div>
       );
     }
