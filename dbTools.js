@@ -139,41 +139,7 @@ exports.findUserById = (req, res) => {
   });
 };
 
-exports.gameWin = (req, res) => {
-  User.findOne({ email: req.body.email }).exec((foundError, suc) => {
-    console.log(req.body)
-    if (foundError) {
-      res.send(foundError);
-    } else {
-      Game.find({
-        winner: suc._id,
-        challenge: req.body.gameId,
-      }).exec((err, found) => {
-        if (err) {
-          res.send(err);
-        } else if (found.length === 0) {
-          Game.create({
-            winner: suc._id,
-            challenge: req.body.gameId,
-          }, (err2, instance) => {
-            err2 ? console.error(err) : console.log('saved', instance);
-          });
-        }
-      });
-    }
-    res.send('challenge saved');
-  });
-};
 
-exports.getGameWinners = (req, res) => {
-  Game.find({}).exec((err, games) => {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(games);
-    }
-  });
-};
 exports.addSolution = (req, res) => {
   Solution.create(req.body, (err, made) => {
     if (err) {
