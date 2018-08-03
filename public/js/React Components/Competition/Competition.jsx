@@ -71,7 +71,7 @@ export default class Competition extends Component {
       this.setState({
         confettiDone: true,
       });
-    }, 2000);
+    }, 5000);
     if (document.getElementsByClassName('timer')[0].textContent) {
       this.setState({
         timerStop: true,
@@ -79,26 +79,26 @@ export default class Competition extends Component {
       });
     }
 
-      axios.post('/solutions', { testId: this.state.testId, solution: this.state.userInput, username: this.props.user }).then((res) => {
-        const testId = this.state.testId;
-        axios.get('/solutions', {
-          params: { testId },
-        }).then((res) => {
-          const allSolutions = res.data;
-          console.log(testId);
-          this.setState({
-            updated: true,
-            passed: true,
-            solutions: allSolutions,
-
-          });
-
-          const score = Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300) / this.state.time);
-          // add/update userProfile POST /userProfile
-          axios.post('/userprofiles', { username: this.props.user, points: score, badges: [] }).then((res) => {
-            // should we do something with this response?
-          });
+    axios.post('/solutions', { testId: this.state.testId, solution: this.state.userInput, username: this.props.user }).then((res) => {
+      const testId = this.state.testId;
+      axios.get('/solutions', {
+        params: { testId },
+      }).then((res) => {
+        const allSolutions = res.data;
+        // console.log(testId);
+        this.setState({
+          updated: true,
+          passed: true,
+          solutions: allSolutions,
+          
         });
+        
+        const score = Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300) / this.state.time);
+        // add/update userProfile POST /userProfile
+        axios.post('/userprofiles', { username: this.props.user, points: score, badges: [] }).then((res) => {
+          // should we do something with this response?
+        });
+      });
     })
       .catch((err) => {
         console.error(err);
@@ -120,7 +120,8 @@ export default class Competition extends Component {
     } return (
       <MuiThemeProvider>
         <div className="Competition">
-          <Confetti className="Confetti" />
+          <Confetti className="Confetti"
+          />
           <AppBar
             title="Challenge"
             style={{ backgroundColor: '#4FB5DB' }}
