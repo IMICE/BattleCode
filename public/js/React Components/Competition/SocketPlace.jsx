@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import io from 'socket.io-client';
+import Sound from 'react-sound';
 
 const socket = io();
 
@@ -49,6 +50,12 @@ export default class SocketPlace extends Component {
         <div>
           {/* {setTimeout(() => console.log(user, players), 1000)} */}
           <h3>{this.state.winner}</h3> <br /> Chat About It!
+          <div>
+            <Sound
+              url="http://freesound.org/data/previews/388/388527_6823432-lq.mp3"
+              playStatus={Sound.status.PLAYING}
+            />
+          </div>
         </div>
       );
     }
