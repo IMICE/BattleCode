@@ -31,10 +31,11 @@ export default class Test extends Component {
           document.getElementsByClassName('Confetti')[0].style.display = 'block';
           this.setState({
             won: true,
+          }, () => {
+            if (this.props.passed === false) {
+              this.props.update();
+            }
           });
-          if (this.props.passed === false) {
-            this.props.update();
-          }
         } else {
           // console.log('fail!', 0);
         }
@@ -51,10 +52,9 @@ export default class Test extends Component {
           {this.state.won ?
             <div>
               <Sound
-                url="http://freesound.org/data/previews/25/25779_15220-lq.mp3"
-                // url="http://freesound.org/data/previews/333/333387_5884138-lq.mp3"
+                // url="http://freesound.org/data/previews/25/25779_15220-lq.mp3"
+                url="http://freesound.org/data/previews/333/333387_5884138-lq.mp3"
                 playStatus={Sound.status.PLAYING}
-                autoLoad={true}
               />
             </div> : <div />
           }
