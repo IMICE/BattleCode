@@ -9,12 +9,8 @@ class SolutionsList extends Component {
   }
   render() {
     return (
-      <Card>
-        <CardHeader
-          title={this.props.solution.username}
-        // subtitle="Subtitle"
-        // avatar="images/jsa-128.jpg"
-        />
+      <Card className="Card">
+        
         {/* <CardMedia
       overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
     >
@@ -22,7 +18,10 @@ class SolutionsList extends Component {
     </CardMedia> */}
         {/* <CardTitle title="Card title" subtitle="Card subtitle" /> */}
         <CardText> 
-          {this.props.solution.solution}
+        
+        <div><b>User: </b>{this.props.solution.username}</div>
+        <div><b>Solution: </b>{this.props.solution.solution}</div>
+        
         </CardText>
         {/* <CardActions>
       <FlatButton label="Action1" />

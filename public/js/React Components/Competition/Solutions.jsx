@@ -9,28 +9,31 @@ class Solutions extends Component {
   }
   render() {
     return (
-      <Card>
-        <CardHeader
-          title= "Solutions"
-        // subtitle="Subtitle"
-        // avatar="images/jsa-128.jpg"
-        />
-        {/* <CardMedia
-      overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-    >
-      <img src="images/nature-600-337.jpg" alt="" />
-    </CardMedia> */}
-        {/* <CardTitle title="Card title" subtitle="Card subtitle" /> */}
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            
+      <Card className = "Card">
         <CardText> 
-          Solution Time:{this.props.time} Points: {this.props.points}
+        
+          <div><b>Good work solving all the tests </b></div>
+          <div><b>Time: {this.props.time}s Points: {this.props.points}</b></div>
+          <div>Here are some previous solutions</div>
+          <div>
           
           {this.props.solutions.map(solution => <SolutionsList solution={solution} key={solution._id} />)}
+          
+          </div>
         </CardText>
         {/* <CardActions>
       <FlatButton label="Action1" />
       <FlatButton label="Action2" />
     </CardActions> */}
       </Card>
+      </div>
+      </div>
+      </div>
+      
     );
   }
 }
