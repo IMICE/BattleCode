@@ -79,7 +79,6 @@ export default class Competition extends Component {
       });
     }
 
-    axios.post('/gamewin', { email: this.props.user, gameId: this.state.testId }).then((res) => {
       axios.post('/solutions', { testId: this.state.testId, solution: this.state.userInput, username: this.props.user }).then((res) => {
         const testId = this.state.testId;
         axios.get('/solutions', {
@@ -91,16 +90,15 @@ export default class Competition extends Component {
             updated: true,
             passed: true,
             solutions: allSolutions,
-            
+
           });
-          
+
           const score = Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300) / this.state.time);
           // add/update userProfile POST /userProfile
           axios.post('/userprofiles', { username: this.props.user, points: score, badges: [] }).then((res) => {
             // should we do something with this response?
           });
         });
-      });
     })
       .catch((err) => {
         console.error(err);
@@ -135,10 +133,10 @@ export default class Competition extends Component {
             }
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
-              
+
           />
-          
-          {this.state.confettiDone ? <Solutions solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/> 
+
+          {this.state.confettiDone ? <Solutions user={this.props.user} solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/>
             :
             <div>
               <div>

@@ -41,6 +41,10 @@ io.on('connection', (socket) => {
   socket.on('SEND_MESSAGE', (chat) => {
     io.emit('RECEIVE_MESSAGE', chat);
   });
+
+  socket.on('POST_GAME_SEND_MESSAGE', (chat) => {
+    io.emit('POST_GAME_RECEIVE_MESSAGE', chat);
+  });
 });
 
 app.post('/signin', (req, res) => {
@@ -57,8 +61,8 @@ app.get('/competitions', db.getChallenges);
 app.get('/competition', db.getChallengeById);
 app.post('/uniquecompetition', db.returnOneChallenge);
 app.post('/makechallenge', db.makeChallenge);
-app.post('/gamewin', db.gameWin);
-app.get('/games', db.getGameWinners);
+// app.post('/gamewin', db.gameWin);
+// app.get('/games', db.getGameWinners);
 app.get('/findUserById', db.findUserById);
 app.post('/solutions', db.addSolution);
 app.get('/solutions', db.getSolutions);
