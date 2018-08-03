@@ -69,7 +69,7 @@ export default class Rankings extends Component {
   render() {
     const userRankings = this.state.userRankings.map((user, i) => (
       <div className="list-group" key={user.username}>
-        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+        <a href="" className="list-group-item list-group-item-action flex-column align-items-start">
           <div className="d-flex w-100 justify-content-between">
             <img className="mr-3" src={this.emblems[this.getBadge(user.points)]} alt="emblem image" height="50px" width="50px"></img>
             <h5 className="mb-1">{user.username}</h5>
