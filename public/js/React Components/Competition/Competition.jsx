@@ -12,7 +12,6 @@ import TextEditor from './TextEditor';
 import TextEditorSettings from './TextEditorSettings';
 import parseToMocha from './parseToMocha';
 import WinShare from './WinShare';
-import SolutionsList from './SolutionsList';
 import Solutions from './Solutions';
 
 function Counter({ timer }) {
@@ -78,38 +77,28 @@ export default class Competition extends Component {
         time: document.getElementsByClassName('timer')[0].textContent,
       });
     }
-
-    axios.post('/solutions', { testId: this.state.testId, solution: this.state.userInput, username: this.props.user }).then((res) => {
-      const testId = this.state.testId;
-      axios.get('/solutions', {
-        params: { testId },
-      }).then((res) => {
-        const allSolutions = res.data;
-        // console.log(testId);
-        this.setState({
-          updated: true,
-          passed: true,
-          solutions: allSolutions,
-          
+    axios.post('/solutions', { testId: this.state.testId, solution: this.state.userInput, username: this.props.user })
+      .then((res) => {
+        const testId = this.state.testId;
+        axios.get('/solutions', {
+          params: { testId },
+        }).then((res) => {
+          const allSolutions = res.data;
+          this.setState({
+            updated: true,
+            passed: true,
+            solutions: allSolutions,
+          });
+          const score = Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300) / this.state.time);
+          axios.post('/userprofiles', { username: this.props.user, points: score, badges: [] })
+            .then((res) => {
+            });
         });
-        
-        const score = Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300) / this.state.time);
-        // add/update userProfile POST /userProfile
-        axios.post('/userprofiles', { username: this.props.user, points: score, badges: [] }).then((res) => {
-          // should we do something with this response?
-        });
-      });
-    })
-      .catch((err) => {
+      }).catch((err) => {
         console.error(err);
       });
   }
   updateState(newState) {
-    // if (document.getElementsByClassName('timer')[0]){
-    //   this.setState({
-    //   });
-    // }
-
     this.setState(newState);
   }
 
@@ -120,8 +109,7 @@ export default class Competition extends Component {
     } return (
       <MuiThemeProvider>
         <div className="Competition">
-          <Confetti className="Confetti"
-          />
+          <Confetti className="Confetti"/>
           <AppBar
             title="Challenge"
             style={{ backgroundColor: '#4FB5DB' }}
@@ -134,10 +122,8 @@ export default class Competition extends Component {
             }
             iconElementRight={
               <TextEditorSettings updateState={this.updateState} />}
-
           />
-
-          {this.state.confettiDone ? <Solutions user={this.props.user} solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300)/this.state.time)}/>
+          {this.state.confettiDone ? <Solutions user={this.props.user} solutions={this.state.solutions} time={this.state.time} points={Math.floor(Object.entries(this.state.tests).length * 100 + (Object.entries(this.state.tests).length * 300) / this.state.time)} />
             :
             <div>
               <div>
@@ -157,7 +143,6 @@ export default class Competition extends Component {
                   getState={this.getState}
                   getSolutions={this.getSolutions}
                   updated={this.state.updated}
-
                 />
                 <TextEditor
                   className="TextEditor"
@@ -186,7 +171,6 @@ export default class Competition extends Component {
     );
   }
 }
-
 Competition.propTypes = {
   user: PropTypes.string.isRequired,
 };

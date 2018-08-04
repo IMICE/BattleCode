@@ -19,10 +19,10 @@ const DashBoard = props => (
             <RaisedButton fullWidth label="Create A Challenge" />
           </Link>
           <div className="container">
-          <div className="row">
-          <div className="col-4"><Chat user={props.user}/></div>
-          <div className="col-8"><GifChat user={props.user}/></div>
-          </div>
+            <div className="row">
+              <div className="col-4"><Chat user={props.user} /></div>
+              <div className="col-8"><GifChat user={props.user} /></div>
+            </div>
           </div>
           <div style={{ textAlign: 'center' }}>Welcome {props.user.slice(0, props.user.indexOf('@'))}!</div>
           <div className="DashBoardFlex">

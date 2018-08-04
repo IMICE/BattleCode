@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { Card, CardText } from 'material-ui';
 import Sound from 'react-sound';
 
-// import axios from 'axios';
-
 export default class Test extends Component {
   constructor(props) {
     super(props);
@@ -36,8 +34,6 @@ export default class Test extends Component {
               this.props.update();
             }
           });
-        } else {
-          // console.log('fail!', 0);
         }
       }, 400);
     } catch (e) {
@@ -52,7 +48,6 @@ export default class Test extends Component {
           {this.state.won ?
             <div>
               <Sound
-                // url="http://freesound.org/data/previews/25/25779_15220-lq.mp3"
                 url="http://freesound.org/data/previews/333/333387_5884138-lq.mp3"
                 playStatus={Sound.status.PLAYING}
               />
@@ -68,7 +63,4 @@ export default class Test extends Component {
 Test.propTypes = {
   test: PropTypes.string.isRequired,
   userInput: PropTypes.string.isRequired,
-  // user: PropTypes.string.isRequired,
-  // testId: PropTypes.string.isRequired,
-  // compDescState: PropTypes.function.isRequired,
 };

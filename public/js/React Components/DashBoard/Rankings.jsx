@@ -7,7 +7,6 @@ export default class Rankings extends Component {
     this.state = {
       userRankings: [],
       badges: localStorage.getItem('badges').split(','),
-      // RankingsList: [],
     };
     this.getBadge = this.getBadge.bind(this);
     this.emblems = {
@@ -32,28 +31,6 @@ export default class Rankings extends Component {
       .catch((err) => {
         console.log(err);
       });
-
-    // axios.get('/games').then(({ data }) => {
-    //   const winners = data.reduce((prev, cur) => prev.concat(cur.winner), []);
-    //   const allWinners = winners.reduce((prev, cur) => {
-    //     prev[cur] = prev[cur] + 1 || 1;
-    //     return prev;
-    //   }, {});
-
-    //   const winnersByName = [];
-    //   Object.entries(allWinners).map(winner =>
-    //     axios.get('/findUserById', {
-    //       params: {
-    //         _id: winner[0],
-    //       },
-    //     }).then(({ data: user }) => {
-    //       const pureWinner = winner.slice();
-    //       pureWinner[2] = user.username.split('@')[0];
-    //       winnersByName.push(pureWinner);
-    //       this.setState({ RankingsList: winnersByName.sort((a, b) => b[1] - a[1]) });
-    //     }),
-    //   );
-    // });
   }
   getBadge(points) {
     const badges = this.state.badges;
@@ -65,7 +42,6 @@ export default class Rankings extends Component {
     }
     return currBadge;
   }
-  
   render() {
     const userRankings = this.state.userRankings.map((user, i) => (
       <div className="list-group" key={user.username}>
@@ -80,16 +56,6 @@ export default class Rankings extends Component {
         </a>
       </div>
     ));
-
-    // const RankingsList = this.state.RankingsList.map((e, i) => (
-    //   <li key={e[0]} className="RankList">
-    //     <p>
-    {/* {console.log(e, 'e in Rankings')} */}
-    {/* <b> {i + 1}. </b>
-          <span> {e[2]} Wins: {e[1]}</span>
-        </p>
-      </li> */}
-    // ));
     return (
       <div className="DashBoardHalf">
         <div className="ListTitle">
@@ -97,7 +63,6 @@ export default class Rankings extends Component {
         </div>
         <ul className="DashBoardList">
           {userRankings}
-          {/* {RankingsList} */}
         </ul>
       </div>
     );
