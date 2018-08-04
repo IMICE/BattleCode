@@ -29,7 +29,6 @@ export default class Signin extends Component {
     const idToken = googleUser.getAuthResponse().id_token;
     const profile = googleUser.getBasicProfile();
     const userEmail = profile.getEmail();
-    // console.log({ accessToken: idToken, email: userEmail, userProfile: profile });
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/signin', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -64,7 +63,6 @@ export default class Signin extends Component {
             <div>
               <Sound
                 url="http://freesound.org/data/previews/93/93678_1386366-lq.mp3"
-                // url="http://freesound.org/data/previews/71/71123_1039875-lq.mp3"      
                 playStatus={Sound.status.PLAYING}
                 loop={true}
               />
